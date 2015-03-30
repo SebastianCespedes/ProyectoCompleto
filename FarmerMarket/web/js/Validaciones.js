@@ -282,51 +282,51 @@ function validarDireccion(direccion) {
 }
 
 
-//function validarDepartamento(departamento) {
-//    if (departamento.value === null || departamento.value === "") {
-//        document.getElementById('ruDepartamento').setAttribute('data-toggle', 'tooltip');
-//        document.getElementById('ruDepartamento').setAttribute('data-original-title', 'Debe seleccionar un departamento');
-//        $(document).ready(function () {
-//            // Initialize tooltip
-//            $('[data-toggle="tooltip"]').tooltip({
-//                placement: 'top'
-//            });
-//        });
-//        document.getElementById('inpDepartamento').setAttribute('class', 'form-group has-feedback has-error');
-//        document.getElementById('botonRegistro').setAttribute('disabled', 'true');
-//    } else {
-//        document.getElementById('ruDepartamento').removeAttribute('data-toggle', 'tooltip');
-//        document.getElementById('ruDepartamento').removeAttribute('data-original-title');
-//        document.getElementById('inpDepartamento').setAttribute('class', 'form-group has-feedback has-success');
-//        document.getElementById('botonRegistro').removeAttribute('disabled');
-//    }
-//}
-//
-//function validarCiudad(ciudad) {
-//    if (ciudad.value === null || ciudad.value === "") {
-//        document.getElementById('ruCiudad').setAttribute('data-toggle', 'tooltip');
-//        document.getElementById('ruCiudad').setAttribute('data-original-title', 'Debe seleccionar un departamento antes');
-//        $(document).ready(function () {
-//            // Initialize tooltip
-//            $('[data-toggle="tooltip"]').tooltip({
-//                placement: 'top'
-//            });
-//        });
-//        document.getElementById('inpCiudad').setAttribute('class', 'form-group has-feedback has-error');
-//        document.getElementById('iconFeedbackDireccion').setAttribute('class', 'glyphicon glyphicon-ok form-control-feedback');
-//        document.getElementById('botonRegistro').setAttribute('disabled', 'true');
-//    } else {
-//        document.getElementById('ruCiudad').removeAttribute('data-toggle', 'tooltip');
-//        document.getElementById('ruCiudad').removeAttribute('data-original-title');
-//        document.getElementById('inpCiudad').setAttribute('class', 'form-group has-feedback has-success');
-//        document.getElementById('botonRegistro').removeAttribute('disabled');
-//    }
-//}
+function validarDepartamento(departamento) {
+    if (departamento.value === null || departamento.value === "") {
+        document.getElementById('ruDepartamento').setAttribute('data-toggle', 'tooltip');
+        document.getElementById('ruDepartamento').setAttribute('data-original-title', 'Debe seleccionar un departamento');
+        $(document).ready(function () {
+            // Initialize tooltip
+            $('[data-toggle="tooltip"]').tooltip({
+                placement: 'top'
+            });
+        });
+        document.getElementById('inpDepartamento').setAttribute('class', 'form-group has-feedback has-error');
+        document.getElementById('botonRegistro').setAttribute('disabled', 'true');
+    } else {
+        document.getElementById('ruDepartamento').removeAttribute('data-toggle', 'tooltip');
+        document.getElementById('ruDepartamento').removeAttribute('data-original-title');
+        document.getElementById('inpDepartamento').setAttribute('class', 'form-group has-feedback has-success');
+        document.getElementById('botonRegistro').removeAttribute('disabled');
+    }
+}
+
+function validarCiudad(ciudad) {
+    if (ciudad.value === null || ciudad.value === "") {
+        document.getElementById('ruCiudad').setAttribute('data-toggle', 'tooltip');
+        document.getElementById('ruCiudad').setAttribute('data-original-title', 'Debe seleccionar un departamento antes');
+        $(document).ready(function () {
+            // Initialize tooltip
+            $('[data-toggle="tooltip"]').tooltip({
+                placement: 'top'
+            });
+        });
+        document.getElementById('inpCiudad').setAttribute('class', 'form-group has-feedback has-error');
+        document.getElementById('iconFeedbackDireccion').setAttribute('class', 'glyphicon glyphicon-ok form-control-feedback');
+        document.getElementById('botonRegistro').setAttribute('disabled', 'true');
+    } else {
+        document.getElementById('ruCiudad').removeAttribute('data-toggle', 'tooltip');
+        document.getElementById('ruCiudad').removeAttribute('data-original-title');
+        document.getElementById('inpCiudad').setAttribute('class', 'form-group has-feedback has-success');
+        document.getElementById('botonRegistro').removeAttribute('disabled');
+    }
+}
 
 function validarClave(clave) {
     if (clave.value === null || clave.value === "") {
         document.getElementById('ruClave').setAttribute('data-toggle', 'tooltip');
-        document.getElementById('ruClave').setAttribute('data-original-title', 'El campo no puede estar vacio');
+        document.getElementById('ruClave').setAttribute('data-original-title', 'Debe ingresar una contraseña');
         $(document).ready(function () {
             // Initialize tooltip
             $('[data-toggle="tooltip"]').tooltip({
@@ -360,7 +360,7 @@ function validarClave(clave) {
 function validarCaptcha(elemento) {
     if (elemento.value === null || elemento.value === "") {
         document.getElementById('answer').setAttribute('data-toggle', 'tooltip');
-        document.getElementById('answer').setAttribute('data-original-title', 'El campo no puede estar vacio');
+        document.getElementById('answer').setAttribute('data-original-title', 'captcha');
         $(document).ready(function () {
             // Initialize tooltip
             $('[data-toggle="tooltip"]').tooltip({
@@ -380,7 +380,7 @@ function validarCaptcha(elemento) {
 function validarFecha(fecha){
     if (fecha.value === null || fecha.value === "") {
         document.getElementById('ruFecha').setAttribute('data-toggle', 'tooltip');
-        document.getElementById('ruFecha').setAttribute('data-original-title', 'El campo no puede estar vacio');
+        document.getElementById('ruFecha').setAttribute('data-original-title', 'Debe ingresar su fecha de nacimiento');
         $(document).ready(function () {
             // Initialize tooltip
             $('[data-toggle="tooltip"]').tooltip({

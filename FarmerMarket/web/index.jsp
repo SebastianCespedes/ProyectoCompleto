@@ -4,6 +4,10 @@
     Author     : User
 --%>
 
+<%@page import="modulo.usuarios.FUsuario"%>
+<%@page import="modulo.usuarios.dao.DepartamentoDao"%>
+<%@page import="modulo.usuarios.dto.DepartamentoDto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,8 +21,14 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <script type="text/javascript" src="js/validacionesAjax.js"></script>
     </head>
     <body>
+        <%
+            FUsuario faUsu = new FUsuario();
+
+        %>
         <!--Inicio Contenedor del sitio -->
         <div class="container">
             <!--Inicio Banner Farmers Market-->
@@ -28,6 +38,19 @@
                 </div>
             </div>
             <!--Fin Banner Farmers Market-->
+            <!-- Mensajes de alertas -->
+            <%                if (request.getParameter("msg") != null && request.getParameter("tipoAlert") != null) {
+            %>
+            <div class="alert alert-<%= request.getParameter("tipoAlert")%>" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <p class="text-center"><%= request.getParameter("msg")%></p>
+            </div>
+            <%
+                }
+            %>            
+            <!-- Fin de mensajes de alertas -->
             <!--Inicio Contenedor Principal-->
             <div class="row">
                 <!--Inicio Contendor Izquierdo Slide de imagenes-->
@@ -153,7 +176,7 @@
                             <!--Inicio Contendor del fomulario-->
                             <div class="container-fluid">
                                 <div class="col-md-12">
-                                    <form action="#" method="post">
+                                    <form action="ControladorUsuarios" method="post">
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback" id="inpRol">
                                                 <label for="ruRol" class="control-label">Yo soy:</label>
@@ -166,7 +189,8 @@
                                             <div class="form-group has-feedback" id="inpDocumento">
                                                 <label class="control-label" for="ruDocumento">N° de Documento:</label>
                                                 <input type="text" class="form-control" tabindex="2" name="ruDocumento"
-                                                       id="ruDocumento" value="" maxlength="10"  onblur="validarDocumento(this);validarUsuarioYaRegistrado(this)">
+                                                       id="ruDocumento" value="" maxlength="10"  onblur="validarDocumento(this);
+                                                               validarUsuarioYaRegistrado(this)">
                                                 <i id="iconFeedbackDocumento"></i>
                                             </div>                           
 
@@ -212,14 +236,23 @@
                                                 <label class="control-label" for="ruDepartamento">Departamento:</label>
                                                 <select name="ruDepartamento" id="ruDepartamento" class="form-control" tabindex="7" onblur="validarDepartamento(this);" onchange="getSubcategorias(this.value);" >
                                                     <option value="">Seleccione un departamento</option>
-
+                                                    <%
+                                                        ArrayList<DepartamentoDto> listDepartamentos;
+                                                        listDepartamentos = (ArrayList<DepartamentoDto>) faUsu.obtenerTodosDepartamentos();
+                                                        for (DepartamentoDto d : listDepartamentos) {
+                                                    %>
+                                                    <option value="<%=d.getIdDepartamento()%>"><%=d.getDepartamento()%></option>                                                        
+                                                    <%
+                                                        }
+                                                    %>
                                                 </select>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpCiudad">
                                                 <label class="control-label" for="ruCiudad">Ciudad:</label>
                                                 <select name="ruCiudad" id="ruCiudad" class="form-control" tabindex="7" onblur="validarCiudad(this)" >
-                                                    <option value="">Seleccione una ciudad</option>                                                        
+                                                    <option value="">Seleccione una ciudad</option>
+                                                    
                                                 </select>
                                             </div>
 
@@ -373,10 +406,10 @@
                                         <textarea name="mcMensaje" class="form-control" rows="4" placeholder="Ingrese su mensaje para la compañía Farmer's Market"></textarea>
                                     </div>
                                 </div>
-                                
+
                                 <input hidden="true" name="mcViene" value="indexp">
                                 <div class="text-right">
-                                <input type="submit" name="mcEnviar" class="btn btn-success" value="Enviar Mensaje">
+                                    <input type="submit" name="mcEnviar" class="btn btn-success" value="Enviar Mensaje">
                                 </div>
                             </form>
                         </div>                       
