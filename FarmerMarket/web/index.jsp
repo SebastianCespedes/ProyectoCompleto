@@ -12,6 +12,7 @@
         <title>Inicio - FarmerMarket</title>
         <link rel="shortcut icon" href="img/favicon.ico">
         <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+        <script type="text/javascript" src="js/Validaciones.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>        
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
@@ -156,7 +157,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback" id="inpRol">
                                                 <label for="ruRol" class="control-label">Yo soy:</label>
-                                                <select name="ruRol" id="ruRol" class="form-control" tabindex="1" required autofocus onblur="">
+                                                <select name="ruRol" id="ruRol" class="form-control" tabindex="1" required autofocus onblur="validarRol(this)">
                                                     <option value="0" selected="true">Seleccione un rol</option>
                                                     <option value="1">Cliente</option>
                                                     <option value="2">Productor</option>                                                        
@@ -165,22 +166,21 @@
                                             <div class="form-group has-feedback" id="inpDocumento">
                                                 <label class="control-label" for="ruDocumento">N° de Documento:</label>
                                                 <input type="text" class="form-control" tabindex="2" name="ruDocumento"
-                                                       id="ruDocumento" value="" maxlength="10" required onblur="validarUsuarioYaRegistrado(this);
-                                                               validarDocumento(this);">
+                                                       id="ruDocumento" value="" maxlength="10"  onblur="validarDocumento(this);validarUsuarioYaRegistrado(this)">
                                                 <i id="iconFeedbackDocumento"></i>
                                             </div>                           
 
                                             <div class="form-group has-feedback" id="inpNombres">
                                                 <label class="control-label" for="ruNombres">Nombres:</label>
                                                 <input type="text" class="form-control" name="ruNombres" maxlength="30" onblur="validarNombres(this);"
-                                                       id="ruNombres" tabindex="3" value="" required>
+                                                       id="ruNombres" tabindex="3" value="" >
                                                 <i id="iconFeedbackNombres"></i>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpApellidos">
                                                 <label class="control-label" for="ruApellidos">Apellidos:</label>
                                                 <input type="text" class="form-control" name="ruApellidos" maxlength="30"
-                                                       id="ruApellidos" tabindex="4" value="" onblur="validarApellidos(this)" required>
+                                                       id="ruApellidos" tabindex="4" value="" onblur="validarApellidos(this)">
                                                 <i id="iconFeedbackApellidos"></i>
                                             </div>
 
@@ -188,14 +188,14 @@
                                                 <label class="control-label" for="ruCorreo">Correo:</label>
                                                 <input type="text" class="form-control" name="ruCorreo" tabindex="5" onblur="validarCorreo(this);
                                                         validaCorreoYaRegistrado(this)"
-                                                       id="ruCorreo" value="" required>
+                                                       id="ruCorreo" value="">
                                                 <i id="iconFeedbackCorreo"></i>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpCorreoRepetido">
                                                 <label class="control-label" for="ruCorreo2">Repetir Correo:</label>
                                                 <input type="text" class="form-control" name="ruCorreo2" tabindex="6" onblur="validarRepetirCorreo(this)"
-                                                       id="ruCorreo2" value="" required>
+                                                       id="ruCorreo2" value="" >
                                                 <i id="iconFeedbackCorreo2"></i>
                                             </div>
                                         </div>
@@ -204,13 +204,13 @@
                                             <div class="form-group has-feedback" id="inpDireccion">
                                                 <label class="control-label" for="ruDireccion">Dirección:</label>
                                                 <input type="text" class="form-control" name="ruDireccion" 
-                                                       id="ruDireccion" tabindex="7" value="" onblur="validarDireccion(this)" required>
+                                                       id="ruDireccion" tabindex="7" value="" onblur="validarDireccion(this)" >
                                                 <i id="iconFeedbackDireccion"></i>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpDepartamento">
                                                 <label class="control-label" for="ruDepartamento">Departamento:</label>
-                                                <select name="ruDepartamento" id="ruDepartamento" class="form-control" tabindex="7" onblur="validarDepartamento(this);" onchange="getSubcategorias(this.value);" required>
+                                                <select name="ruDepartamento" id="ruDepartamento" class="form-control" tabindex="7" onblur="validarDepartamento(this);" onchange="getSubcategorias(this.value);" >
                                                     <option value="">Seleccione un departamento</option>
 
                                                 </select>
@@ -218,32 +218,31 @@
 
                                             <div class="form-group has-feedback" id="inpCiudad">
                                                 <label class="control-label" for="ruCiudad">Ciudad:</label>
-                                                <select name="ruCiudad" id="ruCiudad" class="form-control" tabindex="7" onblur="validarCiudad(this)" required>
+                                                <select name="ruCiudad" id="ruCiudad" class="form-control" tabindex="7" onblur="validarCiudad(this)" >
                                                     <option value="">Seleccione una ciudad</option>                                                        
                                                 </select>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpClave">
                                                 <label class="control-label" for="ruClave">Contraseña:</label>
-                                                <input type="password" class="form-control" value="" name="ruClave" id="ruClave" tabindex="8" required onblur="validarClave(this)">
+                                                <input type="password" class="form-control" value="" name="ruClave" id="ruClave" tabindex="8"  onblur="validarClave(this)" onclick="validarClave(this)">
                                                 <i id="iconFeedbackClave"></i>
                                             </div>
 
-                                            <div class="form-group has-feedback" id="inpClave">
+                                            <div class="form-group has-feedback" id="inpFecha">
                                                 <label class="control-label" for="ruFechaNacimiento">Fecha Nacimiento</label>
-                                                <input type="date" class="form-control" name="ruFechaNacimiento" id="ruClave" tabindex="9" required>
-                                                <i id="iconFeedbackClave"></i>
+                                                <input type="date" class="form-control" name="ruFechaNacimiento" id="ruFecha" tabindex="9" onblur="validarFecha(this)">
+                                                <i id="iconFeedbackFecha"></i>
                                             </div>
 
                                             <div class="checkbox has-feedback">
                                                 <label class="control-label">
-                                                    <input required type="checkbox" tabindex="10"> Acepto <a href="#" data-toggle="modal" data-target="#modalTerminos">Terminos y Condiciones</a>
+                                                    <input  type="checkbox" tabindex="10"> Acepto <a href="#" data-toggle="modal" data-target="#modalTerminos">Terminos y Condiciones</a>
                                                 </label>
                                             </div>
 
                                             <input type="submit" id="botonRegistro" name="botonRegistro" class="btn btn-success" value="Registrarme">
                                         </div>
-
                                     </form>
                                 </div>
                             </div>                
