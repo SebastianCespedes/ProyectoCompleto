@@ -53,7 +53,7 @@
         <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
         <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
-        <script type="text/javascript" src="../js/validaciones.js"></script>
+        <script type="text/javascript" src="../js/Validaciones.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>      
         <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <!-- Fin del Banner  -->
-            
+            <br>
             <!-- Contenedor Principal de la Página -->
             <div class="row">
                 <!-- Dashboard -->

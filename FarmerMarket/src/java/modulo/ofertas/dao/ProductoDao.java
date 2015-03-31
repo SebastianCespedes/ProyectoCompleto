@@ -47,7 +47,7 @@ public class ProductoDao {
         ArrayList<ProductoDto> misProductos = null;
         sqlTemp = "SELECT p.idProducto, p.Nombres, p.idCategoria, p.Imagen FROM productos as p "
                 + "JOIN productoasociado as pa on (p.idProducto = pa.idProducto) "
-                + "JOIN usuarios as u on (u.idUsuario = pa.idProductor) WHERE u.idUsuario = ?";
+                + "JOIN usuarios as u on (u.idUsuario = pa.idUsuario) WHERE u.idUsuario = ?";
         try {
             pstm = unaConexion.prepareStatement(sqlTemp);
             pstm.setLong(1, idUsuario);

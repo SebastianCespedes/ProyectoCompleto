@@ -56,20 +56,20 @@
         <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
-        <script type="text/javascript" src="../js/validaciones.js"></script>
+        <script type="text/javascript" src="../js/Validaciones.js"></script>
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <title>Mis Productos - Farmer's Market</title>
         <script>
-            $(function () {
+            $(function() {
                 $("#slider-range-min").slider({
                     range: "min",
                     value: 50,
                     min: 1,
                     max: 1000,
-                    slide: function (event, ui) {
+                    slide: function(event, ui) {
                         $("#amount").val("N° de Kilos " + ui.value);
                     }
                 });
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <!-- Fin del Banner  -->
-
+            <br>
             <!-- Contenedor Principal de la Página -->
             <div class="row">
                 <!-- Dashboard -->
@@ -96,8 +96,8 @@
                         <div class="media-left">
                             <a href="#" data-toggle="modal" data-target="#modalSubirFoto">
                                 <img class="media-object img-circle" width="50" 
-                                      <% if (actualUsuario.getImagen() != null) {                                         
-                                     
+                                     <% if (actualUsuario.getImagen() != null) {
+
                                      %>
                                      src="<%=actualUsuario.getImagen()%>"
                                      <%
@@ -114,15 +114,7 @@
                         <div class="media-body">
                             <p></p>
                             <h4 class="media-heading">
-                                <select onchange="getPermisos(this.value);" name="idRol">
-                                    <%
-                                        for (RolDto r : rolesActuales) {
-                                    %>
-                                    <option value="<%= r.getIdRol()%>"><%= r.getDescripcion()%></option>
-                                    <%
-                                        }
-                                    %>                                      
-                                </select>
+                                Productor
                             </h4>
                             <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%>
                         </div>
@@ -454,23 +446,21 @@
                 <!-- Contenedor de Segundo-->
             </div>
             <!-- Contenedor Principal de la Página -->
+            <p></p>
+            <!-- Footer (Nota: Escribir el código que permita que esto quede abajo fijo) -->
+            <div class="row">
+                <div class="col-md-13">
+                    <!-- Footer (Nota: Escribir el código que permita que esto quede abajo fijo) -->
+                    <ol class="breadcrumb container-fluid">
+                        <em class="text-center">Todos los derechos reservados / <a href="http://getbootstrap.com/">Bootstrap</a> / <a href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a> / <a href="http://jquery.com/">JQuery</a></em>
+                        <em class="pull-right"><a href="#" data-toggle="modal" data-target="#modalContactenos">Contactar un Administrador</a></em>
+                    </ol>
 
+                </div>
+            </div>
+            <!-- Fin del Footer -->
         </div>
         <!-- Fin de Container-->
-        <p></p>
-        <!-- Footer (Nota: Escribir el código que permita que esto quede abajo fijo) -->
-        <div class="row">
-            <div class="col-md-13">
-                <!-- Footer (Nota: Escribir el código que permita que esto quede abajo fijo) -->
-                <ol class="breadcrumb container-fluid">
-                    <em class="text-center">Todos los derechos reservados / <a href="http://getbootstrap.com/">Bootstrap</a> / <a href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a> / <a href="http://jquery.com/">JQuery</a></em>
-                    <em class="pull-right"><a href="#" data-toggle="modal" data-target="#modalContactenos">Contactar un Administrador</a></em>
-                </ol>
-
-            </div>
-        </div>
-        <!-- Fin del Footer -->
-
     </body>
 </html>
 <%
