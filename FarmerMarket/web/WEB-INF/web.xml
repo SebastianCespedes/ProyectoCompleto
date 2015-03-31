@@ -8,6 +8,10 @@
         <servlet-name>PeticionesAjax</servlet-name>
         <servlet-class>utilidades.PeticionesAjax</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorSesiones</servlet-name>
+        <servlet-class>controladores.usuarios.ControladorSesiones</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorUsuarios</servlet-name>
         <url-pattern>/ControladorUsuarios</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>PeticionesAjax</servlet-name>
         <url-pattern>/PeticionesAjax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorSesiones</servlet-name>
+        <url-pattern>/ControladorSesiones</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

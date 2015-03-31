@@ -7,6 +7,10 @@
 package utilidades;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import modulo.ofertas.FOferta;
+import modulo.usuarios.FUsuario;
+import modulo.usuarios.dto.PermisoDto;
 
 /**
  *
@@ -22,6 +26,17 @@ public class Verificar {
         if (cnn != null) {
             System.out.println("Run");
         }
+         FUsuario f = new FUsuario();
+         FOferta fa = new FOferta();
+         
+         System.out.println(fa.obtenerProductoConIdProductoAso(1073247453));
+ 
+                            
+                            
+                            
+                            
     }
+    
+   
     
 }

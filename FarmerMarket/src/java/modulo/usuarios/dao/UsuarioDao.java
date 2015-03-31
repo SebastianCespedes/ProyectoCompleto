@@ -178,9 +178,8 @@ public class UsuarioDao {
     }
 
     public UsuarioDto obtenerUsuarioPorId(long idUsuario, Connection unaConexion) {
-        sqlTemp = "SELECT `idUsuario`, `Nombres`, `Apellidos`, `Clave`, `Correo`, "
-                + "`FechaNacimiento`, `Direccion`, `idCiudad`, `FechaSistema`, `Imagen`, "
-                + "`idEstado` FROM `usuarios` WHERE `idUsuario` = ?";
+        sqlTemp = "SELECT `idUsuario`, `Nombres`, `Apellidos`, `Clave`, `Correo`,`FechaNac`, `Direccion`, `idCiudad`"
+                + ", `FechaSistema`, `imagen`,`Estado` FROM `usuarios` WHERE `idUsuario` = ?";
         UsuarioDto salidaUsuario = new UsuarioDto();
         try {
             pstm = unaConexion.prepareStatement(sqlTemp);
@@ -194,11 +193,11 @@ public class UsuarioDao {
                 salidaUsuario.setApellidos(rs.getString("Apellidos"));
                 salidaUsuario.setClave(rs.getString("Clave"));
                 salidaUsuario.setCorreo(rs.getString("Correo"));
-                salidaUsuario.setFechaNacimiento(rs.getString("FechaNacimiento"));
+                salidaUsuario.setFechaNacimiento(rs.getString("FechaNac"));
                 salidaUsuario.setDireccion(rs.getString("Direccion"));
                 salidaUsuario.setIdCiudad(rs.getInt("idCiudad"));
                 salidaUsuario.setFechaSistema(rs.getString("FechaSistema"));
-                salidaUsuario.setImagen(rs.getString("Imagen"));
+                salidaUsuario.setImagen(rs.getString("imagen"));
                 salidaUsuario.setEstado(rs.getInt("idEstado"));
             }
         } catch (SQLException ex) {

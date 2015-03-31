@@ -182,8 +182,8 @@
                                                 <label for="ruRol" class="control-label">Yo soy:</label>
                                                 <select name="ruRol" id="ruRol" class="form-control" tabindex="1" required autofocus onblur="validarRol(this)">
                                                     <option value="0" selected="true">Seleccione un rol</option>
-                                                    <option value="1">Cliente</option>
-                                                    <option value="2">Productor</option>                                                        
+                                                    <option value="1">Productor</option>
+                                                    <option value="2">Cliente</option>                                                        
                                                 </select>
                                             </div>
                                             <div class="form-group has-feedback" id="inpDocumento">
@@ -299,7 +299,7 @@
                             <!-- Fin del título de la ventana de ingreso -->
                             <br>
                             <div class="container-fluid">
-                                <form method="POST" action="GestionSesiones">
+                                <form method="POST" action="ControladorSesiones">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label" for="isDocumento">N° Documento</label>
