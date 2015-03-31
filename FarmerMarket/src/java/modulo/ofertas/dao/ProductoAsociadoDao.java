@@ -22,12 +22,12 @@ public class ProductoAsociadoDao {
 
     public String insertProductoAsociado(long idProductor, int[] idProducto, Connection unaConexion) {
         try {
-            String sqlInsert = "INSERT INTO `productoasociado`(`idProductor`, `idProducto`, `idProductoAsociado`) VALUES (?, ?, null)";
+            String sqlInsert = "INSERT INTO `productoasociado` VALUES (null, ?, ?)";
             pstm = unaConexion.prepareStatement(sqlInsert);
 
-            for (int i = 0; i < idProducto.length; i++) {
-                pstm.setLong(1, idProductor);
-                pstm.setInt(2, idProducto[i]);
+            for (int i = 0; i < idProducto.length; i++) {                
+                pstm.setInt(1, idProducto[i]);
+                pstm.setLong(2, idProductor);
                 rtdo = pstm.executeUpdate();
             }
 
@@ -44,7 +44,7 @@ public class ProductoAsociadoDao {
 
     public String eliminarUnProductoAsociado(int idProductoAsociado, Connection unaConexion) {
         try {
-            String sqlInsert = " DELETE FROM productoasociado WHERE idProductoAsociado = ?";
+            String sqlInsert = " DELETE FROM productoasociado WHERE idProdAsoc = ?";
             pstm = unaConexion.prepareStatement(sqlInsert);
 
             pstm.setInt(1, idProductoAsociado);            
@@ -64,7 +64,7 @@ public class ProductoAsociadoDao {
     //Contar el número de productos que tiene un usuario
     public String obtenerNumeroProductosAsociados(long idProductor, Connection unaConexion) {
         try {
-            String sqlInsert = "SELECT count(idProducto) as Cantidad FROM productoasociado WHERE idProductor= ?";
+            String sqlInsert = "SELECT count(idProducto) as Cantidad FROM productoasociado WHERE idUsuario = ?";
             pstm = unaConexion.prepareStatement(sqlInsert);
             pstm.setLong(1, idProductor);
             rs = pstm.executeQuery();
@@ -82,14 +82,14 @@ public class ProductoAsociadoDao {
     //Validar producto ya asociado
     public boolean validarYaProdAso(long idProductor, int idProducto, Connection unaConexion) {
         try {
-            String sqlInsert = "SELECT idProductoAsociado FROM productosasociados WHERE idProductor = ? AND idProducto = ?";
+            String sqlInsert = "SELECT idProdAsoc FROM productoasociado WHERE idUsuario = ? AND idProducto = ?";
             pstm = unaConexion.prepareStatement(sqlInsert);
             pstm.setLong(1, idProductor);
             pstm.setInt(2, idProducto);
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                rtdo = rs.getInt("idProductoAsociado");
+                rtdo = rs.getInt("idProdAsoc");
             }
 
             if (rtdo == 0) {
@@ -104,14 +104,14 @@ public class ProductoAsociadoDao {
     //Validar producto ya asociado
     public int obtenerIdPA(long idProductor, int idProducto, Connection unaConexion) {
         try {
-            String sqlInsert = "SELECT idProductoAsociado FROM productosasociados WHERE idProductor = ? AND idProducto = ?";
+            String sqlInsert = "SELECT idProdAsoc FROM productoasociado WHERE idUsuario = ? AND idProducto = ?";
             pstm = unaConexion.prepareStatement(sqlInsert);
             pstm.setLong(1, idProductor);
             pstm.setInt(2, idProducto);
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                rtdo = rs.getInt("idProductoAsociado");
+                rtdo = rs.getInt("idProdAsoc");
             }
 
         } catch (SQLException sqle) {

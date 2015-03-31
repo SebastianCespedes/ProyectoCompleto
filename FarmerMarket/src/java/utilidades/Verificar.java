@@ -29,15 +29,17 @@ public class Verificar {
         FUsuario f = new FUsuario();
         FOferta fa = new FOferta();
 
-        ArrayList<ProductoDto> misProductos;
-        misProductos = (ArrayList<ProductoDto>) fa.obtenerProductosAsociados(1073246453);
-        if (misProductos.size() > 0) {
-            for (ProductoDto p : misProductos) {
-                System.out.println(p);
-            }
-
-        } else {
-            System.out.println("nada");
-        }
+//        ArrayList<ProductoDto> misProductos;
+//        misProductos = (ArrayList<ProductoDto>) fa.obtenerProductosAsociados(1073246453);
+//        if (misProductos.size() > 0) {
+//            for (ProductoDto p : misProductos) {
+//                System.out.println(p);
+//            }
+//
+//        } else {
+//            System.out.println("nada");
+//        }
+        
+        System.out.println(fa.obtenerNumeroDeProductosAsociadosPorProducto(1073247453));
     }
 }

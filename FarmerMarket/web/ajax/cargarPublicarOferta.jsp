@@ -32,8 +32,8 @@
         %>       
 
 
-    <strong><%= pDto.getNombres()%></strong> (<%= faOfer.obtenerNombreDeCategoriaPorId(pDto.getIdCategoria())%>)
-    <input type="hidden" name="idProductoAsociado" value="<%= idProductoAso%>">
+        <strong><%= pDto.getNombres()%></strong> (<%= faOfer.obtenerNombreDeCategoriaPorId(pDto.getIdCategoria())%>)
+        <input type="hidden" name="idProductoAsociado" value="<%= idProductoAso%>">
 
-</body>
+    </body>
 </html>

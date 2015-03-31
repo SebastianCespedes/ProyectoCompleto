@@ -12,6 +12,10 @@
         <servlet-name>ControladorSesiones</servlet-name>
         <servlet-class>controladores.usuarios.ControladorSesiones</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorOferta</servlet-name>
+        <servlet-class>controladores.ofertas.ControladorOferta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorUsuarios</servlet-name>
         <url-pattern>/ControladorUsuarios</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ControladorSesiones</servlet-name>
         <url-pattern>/ControladorSesiones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorOferta</servlet-name>
+        <url-pattern>/ControladorOferta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

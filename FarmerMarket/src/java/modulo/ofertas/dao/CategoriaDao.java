@@ -24,14 +24,14 @@ public class CategoriaDao {
 
 
     public String obtenerNombrePorId(int idCategoria, Connection unaConexion) {
-        sqlTemp = "SELECT `Descripcion` FROM `categorias` WHERE `idCategoria` = ?";
+        sqlTemp = "SELECT `descripcion` FROM `categorias` WHERE `idCategoria` = ?";
         try {
             pstm = unaConexion.prepareStatement(sqlTemp);
             pstm.setInt(1, idCategoria);
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                mensaje = rs.getString("Descripcion");
+                mensaje = rs.getString("descripcion");
             }
         } catch (SQLException ex) {
             System.out.println("Error, detalle: " + ex.getMessage());

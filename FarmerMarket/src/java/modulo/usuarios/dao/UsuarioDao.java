@@ -257,14 +257,14 @@ public class UsuarioDao {
     }
 
     public String obtenerCorreoPorId(long idUsuario, Connection unaConexion) {
-        sqlTemp = "SELECT `Correo` FROM `usuarios` WHERE `idUsuario` = ?";
+        sqlTemp = "SELECT `correo` FROM `usuarios` WHERE `idUsuario` = ?";
         try {
             pstm = unaConexion.prepareStatement(sqlTemp);
             pstm.setLong(1, idUsuario);
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                mensaje = rs.getString("Correo");
+                mensaje = rs.getString("correo");
             }
         } catch (SQLException ex) {
             System.out.println("Error, detalle: " + ex.getMessage());

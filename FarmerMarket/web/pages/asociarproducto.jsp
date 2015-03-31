@@ -219,7 +219,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12" >
-                                <form method="GET" action="../GestionProductos" id="formAsociarProductos">                                    
+                                <form method="GET" action="../ControladorOferta" id="formAsociarProductos">                                    
                                     <legend class="text-center">Seleccione los productos a ofertar</legend>                                    
                                     <table class="table table-hover" id="rtProductos">
                                         <thead>
@@ -239,7 +239,7 @@
                                             <tr>
                                                 <td><%= p.getNombres()%></td>
                                                 <td><%= faOfer.obtenerNombreDeCategoriaPorId(p.getIdCategoria())%></td>
-                                                <td><img src="../<%= p.getImagen()%>" alt="Imagen de la lechuga" width="50"></td>
+                                                <td><img src="<%= p.getImagen()%>" alt="Imagen de la lechuga" width="50"></td>
                                                 <td class="text-center"><input type="checkbox" name="apProductos" value="<%= p.getIdProducto()%>" id="apProductos"></td>
                                             </tr>
                                             <%

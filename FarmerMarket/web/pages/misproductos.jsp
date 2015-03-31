@@ -57,10 +57,7 @@
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/Validaciones.js"></script>
-
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        
         <title>Mis Productos - Farmer's Market</title>
         <script>
             $(function() {
@@ -68,7 +65,7 @@
                     range: "min",
                     value: 50,
                     min: 1,
-                    max: 1000,
+                    max: 300,
                     slide: function(event, ui) {
                         $("#amount").val("N° de Kilos " + ui.value);
                     }
@@ -238,14 +235,14 @@
                                 <div class="media">
                                     <div class="media-left">
                                         <a href="#">
-                                            <img class="media-object" src="../<%= p.getImagen()%>" alt="Producto mío, lechuga" width="200">
+                                            <img class="media-object" src="<%= p.getImagen()%>" alt="Producto mío, lechuga" width="200">
                                         </a>
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading"><%= p.getNombres()%></h4>                                        
                                         <p><strong>Categoria: </strong> <%= faOfer.obtenerNombreDeCategoriaPorId(p.getIdCategoria())%></p>
                                         <button type="button" onclick="getFormOfertar(<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalOfertarProducto" class="btn btn-success">Ofertar</button>
-                                        <a href="../GestionProductos?op=eliaso&idProductoAso=<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" class="btn btn-danger">Eliminar Producto</a>
+                                        <a href="../ControladorOferta?op=eliaso&idProductoAso=<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" class="btn btn-danger">Eliminar Producto</a>
                                     </div>
                                 </div>                                        
                             </div>                            
