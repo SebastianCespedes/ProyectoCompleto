@@ -33,6 +33,8 @@
         for (RolDto rol : rolesActuales) {
             if (rol.getIdRol() == 1) {
                 poderEntrar = true;
+            } else if (rol.getIdRol() == 2) {
+                poderEntrar = true;
             }
         }
 
@@ -51,6 +53,14 @@
         <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Initialize tooltip
+                $('[data-toggle="tooltip"]').tooltip({
+                    placement: 'top'
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container ">
@@ -71,8 +81,8 @@
                         <div class="media-left">
                             <a href="#" data-toggle="modal" data-target="#modalSubirFoto">
                                 <img class="media-object img-circle" width="50" 
-                                     <% if (actualUsuario.getImagen() != null) {                                         
-                                     
+                                     <% if (actualUsuario.getImagen() != null) {
+
                                      %>
                                      src="<%=actualUsuario.getImagen()%>"
                                      <%
@@ -80,7 +90,7 @@
 
                                      %>
                                      src="../img/avatars/user.png"
-                                     data-toggle="tooltip" title="Precione click para subir una foto"
+                                     data-toggle="tooltip" data-original-title="Precione click para subir una foto"
                                      <%               }
                                      %>
                                      alt="Mi foto de perfil">
@@ -127,13 +137,28 @@
                     <!-- Menú de Sesion, buscar, idiomas y info -->
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
+
                             <div class="navbar-header">
+                                <%
+                                    for (RolDto rol : rolesActuales) {
+                                        if (rol.getIdRol() == 1) {
+                                            poderEntrar = true;
+                                %>
                                 <a href="#" class="navbar-brand text-success">
                                     Pedidos <span class="badge info">4</span> 
                                 </a>
                                 <a href="#" class="navbar-brand text-success">
                                     Ofertas <span class="badge">18</span>
                                 </a>
+                                <%                                        }else if(rol.getIdRol() == 2){
+                                %>
+                                <a href="#" class="navbar-brand text-success">
+                                    Pedidos en espera <span class="badge info">4</span> 
+                                </a>
+                                <%
+                                            }
+                                    }
+                                %>
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

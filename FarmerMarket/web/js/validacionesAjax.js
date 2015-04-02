@@ -2,7 +2,7 @@ var req1;
 var req2;
 
 //Función para verificar si el documento ya está registrado anteriormente
-function validarUsuarioYaRegistrado(campo) {
+function validarUsuarioYaRegistrado(campo) {    
     if (campo.value === '')
         return false;
 
@@ -23,8 +23,8 @@ function callbackIdUsuario() {
         if (req1.status === 200) {
             if (req1.responseText.toString() === "existe") {
                 document.getElementById('ruDocumento').setAttribute('data-toggle', 'tooltip');
-                document.getElementById('ruDocumento').setAttribute('data-original-title', 'Usuario ya registrado anteriormente, intente iniciar sesión o recuperar su contraseña');
-                $(document).ready(function () {
+                document.getElementById('ruDocumento').setAttribute('data-original-title', 'Usuario ya registrado anteriormente, intente iniciar sesión');
+                $(document).ready(function() {
                     // Initialize tooltip
                     $('[data-toggle="tooltip"]').tooltip({
                         placement: 'left'
@@ -33,12 +33,35 @@ function callbackIdUsuario() {
                 document.getElementById('inpDocumento').setAttribute('class', 'form-group has-feedback has-error');
                 document.getElementById('iconFeedbackDocumento').setAttribute('class', 'glyphicon glyphicon-remove form-control-feedback');
                 document.getElementById('botonRegistro').setAttribute('disabled', 'true');
+                document.getElementById('ruNombres').setAttribute('disabled', 'true');
+                document.getElementById('ruApellidos').setAttribute('disabled', 'true');
+                document.getElementById('ruClave').setAttribute('disabled', 'true');
+                document.getElementById('ruFecha').setAttribute('disabled', 'true');
+                document.getElementById('ruDepartamento').setAttribute('disabled', 'true');
+                document.getElementById('ruCiudad').setAttribute('disabled', 'true');
+                document.getElementById('ruRol').setAttribute('disabled', 'true');
+                document.getElementById('ruCorreo').setAttribute('disabled', 'true');
+                document.getElementById('ruCorreo2').setAttribute('disabled', 'true');
+                document.getElementById('ruDireccion').setAttribute('disabled', 'true');
+                document.getElementById('ruTerminos').setAttribute('disabled', 'true');
             } else if (req1.responseText.toString() === "noexiste") {
                 document.getElementById('ruDocumento').removeAttribute('data-toggle', 'tooltip');
                 document.getElementById('ruDocumento').removeAttribute('data-original-title');
                 document.getElementById('inpDocumento').setAttribute('class', 'form-group has-feedback has-success');
                 document.getElementById('iconFeedbackDocumento').setAttribute('class', 'glyphicon glyphicon-ok form-control-feedback');
                 document.getElementById('botonRegistro').removeAttribute('disabled');
+
+                document.getElementById('ruNombres').removeAttribute('disabled');
+                document.getElementById('ruApellidos').removeAttribute('disabled');
+                document.getElementById('ruClave').removeAttribute('disabled');
+                document.getElementById('ruFecha').removeAttribute('disabled');
+                document.getElementById('ruDepartamento').removeAttribute('disabled');
+                document.getElementById('ruCiudad').removeAttribute('disabled');
+                document.getElementById('ruRol').removeAttribute('disabled');
+                document.getElementById('ruCorreo').removeAttribute('disabled');
+                document.getElementById('ruCorreo2').removeAttribute('disabled');
+                document.getElementById('ruDireccion').removeAttribute('disabled');
+                document.getElementById('ruTerminos').removeAttribute('disabled');
             }
         }
     }
@@ -68,8 +91,8 @@ function callbackCorreo() {
         if (req2.status === 200) {
             if (req2.responseText.toString() === "existe") {
                 document.getElementById('ruCorreo').setAttribute('data-toggle', 'tooltip');
-                document.getElementById('ruCorreo').setAttribute('data-original-title', 'Correo ya registrado anteriormente, intente iniciar sesión o recuperar su contraseña');
-                $(document).ready(function () {
+                document.getElementById('ruCorreo').setAttribute('data-original-title', 'Correo ya registrado anteriormente');
+                $(document).ready(function() {
                     // Initialize tooltip
                     $('[data-toggle="tooltip"]').tooltip({
                         placement: 'left'
@@ -79,21 +102,44 @@ function callbackCorreo() {
                 document.getElementById('iconFeedbackCorreo').setAttribute('class', 'glyphicon glyphicon-remove form-control-feedback');
                 document.getElementById('ruCorreo2').setAttribute('disabled', 'true');
                 document.getElementById('botonRegistro').setAttribute('disabled', 'true');
+                document.getElementById('ruDocumento').setAttribute('disabled', 'true');
+                document.getElementById('ruNombres').setAttribute('disabled', 'true');
+                document.getElementById('ruApellidos').setAttribute('disabled', 'true');
+                document.getElementById('ruClave').setAttribute('disabled', 'true');
+                document.getElementById('ruFecha').setAttribute('disabled', 'true');
+                document.getElementById('ruDepartamento').setAttribute('disabled', 'true');
+                document.getElementById('ruCiudad').setAttribute('disabled', 'true');
+                document.getElementById('ruRol').setAttribute('disabled', 'true');                
+                document.getElementById('ruDireccion').setAttribute('disabled', 'true');
+                document.getElementById('ruTerminos').setAttribute('disabled', 'true');
                 document.getElementById('ruCorreo2').setAttribute('data-toggle', 'tooltip');
                 document.getElementById('ruCorreo2').setAttribute('data-original-title', 'Se deshabilito el campo porque el correo anterior está registrado ya');
             } else if (req2.responseText.toString() === "noexiste") {
                 document.getElementById('ruCorreo').removeAttribute('data-toggle', 'tooltip');
                 document.getElementById('ruCorreo').removeAttribute('data-original-title');
-                
+
                 document.getElementById('ruCorreo2').removeAttribute('data-toggle', 'tooltip');
                 document.getElementById('ruCorreo2').removeAttribute('data-original-title');
-                
-                
+
+
                 document.getElementById('iconFeedbackCorreo').setAttribute('class', 'glyphicon glyphicon-ok form-control-feedback');
                 document.getElementById('inpCorreo').setAttribute('class', 'form-group has-feedback has-success');
                 document.getElementById('botonRegistro').removeAttribute('disabled');
+                document.getElementById('ruNombres').removeAttribute('disabled');
+                document.getElementById('ruApellidos').removeAttribute('disabled');
+                document.getElementById('ruClave').removeAttribute('disabled');
+                document.getElementById('ruFecha').removeAttribute('disabled');
+                document.getElementById('ruDepartamento').removeAttribute('disabled');
+                document.getElementById('ruCiudad').removeAttribute('disabled');
+                document.getElementById('ruRol').removeAttribute('disabled');                
                 document.getElementById('ruCorreo2').removeAttribute('disabled');
+                document.getElementById('ruDireccion').removeAttribute('disabled');
+                document.getElementById('ruDocumento').removeAttribute('disabled');
+                document.getElementById('ruTerminos').removeAttribute('disabled');
             }
         }
     }
 }
+
+
+

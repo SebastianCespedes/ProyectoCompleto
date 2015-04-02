@@ -81,7 +81,7 @@ public class ControladorSesiones extends HttpServlet {
                     if (paraProductor) {
                         response.sendRedirect("pages/indexp.jsp");
                     } else if (paraCliente) {
-                        response.sendRedirect("pages/indexc.jsp");
+                        response.sendRedirect("pages/indexp.jsp");
                     } else if (paraAdmin) {
                         response.sendRedirect("pages/indexa.jsp");
                     }

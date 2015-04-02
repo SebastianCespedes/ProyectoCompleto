@@ -6,11 +6,12 @@
 
 <%@page import="modulo.usuarios.FUsuario"%>
 <%@page import="modulo.usuarios.dto.PermisoDto"%>
-<%@page import="modulo.usuarios.dao.PermisoDao"%>
 <%@page import="modulo.usuarios.dto.RolDto"%>
+<%@page import="modulo.usuarios.dao.PermisoDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modulo.usuarios.dto.UsuarioDto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 
 <%
     HttpSession miSesion = request.getSession(false);
@@ -28,13 +29,13 @@
         RolDto primerRol = rolesActuales.get(0);
 
         FUsuario faUsu = new FUsuario();
-        String pagActual = "misofertas.jsp";
+        String pagActual = "indexp.jsp";
 
         // Validación para poder entrar
         boolean poderEntrar = false;
 
         for (RolDto rol : rolesActuales) {
-            if (rol.getIdRol() == 1) {
+            if (rol.getIdRol() == 2) {
                 poderEntrar = true;
             }
         }
@@ -42,6 +43,7 @@
         if (poderEntrar) {
 
 %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,8 +54,7 @@
         <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
-        <script type="text/javascript" src="../js/Validaciones.js"></script>
-        <title>Mis Ofertas - Farmer's Market</title>
+        <title>Cliente - Farmer's Market</title>
         <script type="text/javascript">
             $(document).ready(function () {
                 // Initialize tooltip
@@ -62,6 +63,7 @@
                 });
             });
         </script>
+        
     </head>
     <body>
         <div class="container">
@@ -72,7 +74,7 @@
                 </div>
             </div>
             <!-- Fin del Banner  -->
-            <br>
+
             <!-- Contenedor Principal de la Página -->
             <div class="row">
                 <!-- Dashboard -->
@@ -100,7 +102,7 @@
                         <div class="media-body">
                             <p></p>
                             <h4 class="media-heading">
-                                Productor
+                                Cliente
                             </h4>
                             <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%>
                         </div>
@@ -121,12 +123,11 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%> <i class="fa fa-home"></i></a>
                         </li>
                         <%
                             }
                         %>
-                    </ul>
                     <!-- Fin del menú de navegación -->
 
                 </div>
@@ -154,7 +155,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%> <span class="fa fa-chevron-down"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li class="text-center"><a href="../GestionSesiones?op=salir">Cerrar Sesión</a></li>
+                                            <li class="text-center"><a href="../ControladorSesiones?op=salir">Cerrar Sesión</a></li>
                                             <li class="divider"></li>
                                             <li class="text-center"><a href="perfil.jsp">Mi Perfil</a></li>
                                             <li class="divider"></li>
@@ -187,8 +188,9 @@
 
                     <!-- Miga de pan -->
                     <ol class="breadcrumb">
-                        <li><a href="indexp.jsp">Inicio</a></li>
-                        <li><a href="misofertas.jsp">Mis Ofertas</a></li>                        
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li class="active">Data</li>
                     </ol>
                     <!-- Fin de miga de pan -->
 
@@ -208,56 +210,229 @@
                     <!-- Fin de mensajes de alertas -->
 
                     <!-- Contenedor de contenido especifico -->
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="../img/publicidad.jpg" alt="..." class="img-thumbnail">
-                            </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="page-header">
-                                <h1 class="text-center lead">Mis Ofertas <i class="fa fa-shopping-cart"></i></h1>
-                            </div>                        
-                            <div class="col-md-3">                            
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="thumbnail">
-                                            <img src="../img/descarga.svg" alt="...">
-                                            <div class="caption">
-                                                <h3>Thumbnail label</h3>
-                                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-default" role="button">Editar</a></p>
+                                <h4 class="text-center lead">Razones por las cuales utilizar Farmer's Market como cliente</h4>
+                            </div>
+                            <!-- Botonoes de razones -->
+                            <div class="row">                                    
+                                <div class="col-md-3">
+                                    <!-- Razón número 1 -->
+                                    <center>
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#razonUno" aria-expanded="false" aria-controls="collapseExample">
+                                            Mas cerca de tu hogar
+                                        </button>
+                                    </center>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- Razón número 1 -->
+                                    <center>
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#razonDos" aria-expanded="false" aria-controls="collapseExample">
+                                            Confianza
+                                        </button>
+                                    </center>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- Razón número 1 -->
+                                    <center>
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#razonTres" aria-expanded="false" aria-controls="collapseExample">
+                                            Calidad
+                                        </button>
+                                    </center>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- Razón número 1 -->
+                                    <center>
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#razonCuatro" aria-expanded="false" aria-controls="collapseExample">
+                                            Comodidad
+                                        </button>
+                                    </center>                                    
+                                </div>
+                            </div>
+                            <!-- Fin  de botonoes de razones -->
+                            <hr>
+                            <!-- Mensajes de botonoes de razones -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="collapse" id="razonUno">
+                                        <div class="well">
+                                            <div class="media">
+                                                <div class="media-right">
+                                                    <img class="img-thumbnail" src="../img/productos/0007591428L-849x565-660x439-630x400.jpg" alt="...">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h1 class="text-center">Mas cerca de tu hogar</h1>
+                                                    <p class="lead text-justify">
+                                                        Más cerca de tu casa Encuentra las mejores frutas y 
+                                                        verduras en nuestro catálogo" Todo lo mejor del 
+                                                        campo a un solo click, y con los mejores precios
+                                                    </p>                                                    
+                                                </div>                                                
                                             </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin de razón número 1 -->
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="collapse" id="razonDos">
+                                        <div class="well">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h1 class="text-center">Mas cerca de tu hogar</h1>
+                                                    <p class="lead text-justify">
+                                                        Más cerca de tu casa Encuentra las mejores frutas y 
+                                                        verduras en nuestro catálogo" Todo lo mejor del 
+                                                        campo a un solo click, y con los mejores precios
+                                                    </p>                                                    
+                                                </div>
+                                                <div class="media-right">
+                                                    <img class="img-thumbnail" src="../img/productos/0007591428L-849x565-660x439-630x400.jpg" alt="...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin de razón número 1 -->
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="collapse" id="razonTres">
+                                        <div class="well">
+                                            <div class="media">
+                                                <div class="media-right">
+                                                    <img class="img-thumbnail" src="../img/productos/0007591428L-849x565-660x439-630x400.jpg" alt="...">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h1 class="text-center">Mas cerca de tu hogar</h1>
+                                                    <p class="lead text-justify">
+                                                        Más cerca de tu casa Encuentra las mejores frutas y 
+                                                        verduras en nuestro catálogo" Todo lo mejor del 
+                                                        campo a un solo click, y con los mejores precios
+                                                    </p>                                                    
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin de razón número 1 -->
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="collapse" id="razonCuatro">
+                                        <div class="well">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h1 class="text-center">Mas cerca de tu hogar</h1>
+                                                    <p class="lead text-justify">
+                                                        Más cerca de tu casa Encuentra las mejores frutas y 
+                                                        verduras en nuestro catálogo" Todo lo mejor del 
+                                                        campo a un solo click, y con los mejores precios
+                                                    </p>                                                    
+                                                </div>
+                                                <div class="media-right">
+                                                    <img class="img-thumbnail" src="../img/productos/0007591428L-849x565-660x439-630x400.jpg" alt="...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </div>
+                        </div>                           
+                    </div>                        
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="../img/publicidad.jpg" alt="..." class="img-thumbnail">
+                        </div>
+                        <div class="page-header">
+                            <h1 class="text-center lead">Nuevas Ofertas <i class="fa fa-openid fa-2x"></i></h1>
+                        </div>                        
+                        <div class="col-md-3">                            
+                            <div class="row">                                
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <img src="../img/descarga.svg" alt="...">
+                                        <div class="caption">
+                                            <h3>Thumbnail label</h3>
+                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                            <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-success" role="button">Pedir</a></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="thumbnail">
-                                            <img src="../img/descarga.svg" alt="...">
-                                            <div class="caption">
-                                                <h3>Thumbnail label</h3>
-                                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-default" role="button">Editar</a></p>
-                                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <img src="../img/descarga.svg" alt="...">
+                                        <div class="caption">
+                                            <h3>Thumbnail label</h3>
+                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                            <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-success" role="button">Pedir</a></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="thumbnail">
-                                            <img src="../img/descarga.svg" alt="...">
-                                            <div class="caption">
-                                                <h3>Thumbnail label</h3>
-                                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-default" role="button">Editar</a></p>
-                                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <img src="../img/descarga.svg" alt="...">
+                                        <div class="caption">
+                                            <h3>Thumbnail label</h3>
+                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                            <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-success" role="button">Pedir</a></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">                          
+                        <div class="col-md-3">
+                            <div class="row">                                
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <img src="../img/descarga.svg" alt="...">
+                                        <div class="caption">
+                                            <h3>Thumbnail label</h3>
+                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                            <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-success" role="button">Pedir</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <img src="../img/descarga.svg" alt="...">
+                                        <div class="caption">
+                                            <h3>Thumbnail label</h3>
+                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                            <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-success" role="button">Pedir</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <img src="../img/descarga.svg" alt="...">
+                                        <div class="caption">
+                                            <h3>Thumbnail label</h3>
+                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                            <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-success" role="button">Pedir</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="../img/publicidad.jpg" alt="..." class="img-thumbnail">
                         </div>
                     </div>
                     <!-- Fin de contenedor de contenido especifico -->
@@ -276,54 +451,49 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <form class="form-horizontal" method="POST" action="../GestionUsuarios" id="formCambiarClave">
-                                                <div class="form-group has-feedback" id="inpClaveAntigua">
+                                            <form class="form-horizontal">
+                                                <div class="form-group has-error has-feedback">
                                                     <label for="ccClaveAntigua" class="col-sm-4 control-label">Contraseña Antigua</label>
                                                     <div class="col-sm-7">
                                                         <input type="password" class="form-control" 
                                                                id="ccClaveAntigua" placeholder="Ingrese la contraseña antigua"
-                                                               name="ccClaveAntigua" onblur="validarClaveEnCambiar(this)">
+                                                               name="ccClaveAntigua">
                                                         <!-- Al momento de validar, se le manda la class a la i para agregar icon-->
-                                                        <i id="iconFeedbackClaveCambiar"></i>
+                                                        <i class="glyphicon glyphicon-remove form-control-feedback"></i>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group has-feedback" id="inpClaveNuevaCambiar">
+                                                <div class="form-group has-warning has-feedback">
                                                     <label for="ccClaveNueva" class="col-sm-4 control-label">Nueva Contraseña</label>
                                                     <div class="col-sm-7">                                                        
                                                         <input type="password" class="form-control" 
                                                                id="ccClaveNueva" placeholder="Ingrese una nueva contraseña"
-                                                               name="ccClaveNueva" onblur="validarClaveNuevaEnCambiar(this)">
+                                                               name="ccClaveNueva">
                                                         <!-- Al momento de validar, se le manda la class a la i para agregar icon-->
-                                                        <i id="iconFeedbackClaveNuevaCambiar"></i>
+                                                        <i class="glyphicon glyphicon-exclamation-sign form-control-feedback"></i>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group has-feedback" id="inpClaveRepetidaCambiar">
+                                                <div class="form-group has-success has-feedback">
                                                     <label for="ccClaveRepetida" class="col-sm-4 control-label">Repetir Contraseña</label>
-                                                    <div class="col-sm-7">                                                        
+                                                    <div class="col-sm-7">
                                                         <input type="password" class="form-control" 
-                                                               id="ccClaveRepetida" placeholder="Ingrese una nueva contraseña"
-                                                               name="ccClaveRepetida" onblur="validarRepetirClaveNuevaEnCambiar(this)">
+                                                               id="ccClaveRepetida" placeholder="Repita la contraseña"
+                                                               name="ccClaveRepetida">
                                                         <!-- Al momento de validar, se le manda la class a la i para agregar icon-->
-                                                        <i id="iconFeedbackClaveNuevaCambiar2"></i>
+                                                        <i class="glyphicon glyphicon-ok form-control-feedback"></i>
                                                     </div>
-                                                </div>                                                
-
-                                                <input hidden="true" name="ccViene" value="indexp">
-                                                <input hidden="true" name="ccDocumento" id="ccDocumento" value="<%= actualUsuario.getIdUsuario()%>">
-                                                <input hidden="true" name="formCambiarClave" id="formCambiarClave" value="ok">
+                                                </div>
                                             </form>                                                                                        
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                            <button type="button" id="botonEnviarCambiarClave" class="btn btn-success"  onclick="enviarFormulario('formCambiarClave')">Cambiar Contraseña</button>
+                                            <button type="button" class="btn btn-success">Cambiar Contraseña</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Fin de Cambiar Contraseña -->
+                        </div>                        
 
                         <!-- Formulario de Contáctenos -->
                         <div>
@@ -335,7 +505,7 @@
                                             <h4 class="modal-title text-center" id="myModalLabel">Contáctenos | Farmer's Market</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form-horizontal" method="POST" action="../GestionUsuarios" id="formContactenos">
+                                            <form class="form-horizontal">
                                                 <div class="form-group">
                                                     <label for="mcNombre" class="col-sm-2 control-label">Nombre</label>
                                                     <div class="col-sm-10">
@@ -355,24 +525,24 @@
                                                 <div class="form-group">
                                                     <label for="inputPassword3" class="col-sm-2 control-label">Mensaje</label>
                                                     <div class="col-sm-10">
-                                                        <textarea name="mcMensaje" class="form-control" rows="4" placeholder="Ingrese su mensaje para la compañía Farmer's Market"></textarea>
+                                                        <textarea class="form-control" rows="4" placeholder="Ingrese su mensaje para la compañía Farmer's Market"></textarea>
                                                     </div>
                                                 </div>
-
-                                                <input hidden="true" name="mcViene" value="misOfertas">
-                                                <input type="hidden" name="mcEnviar" value="ok">
                                             </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-success" onclick="enviarFormulario('formContactenos')">Enviar Mensaje</button>
+                                            <button type="button" class="btn btn-success">Enviar Mensaje</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Fin de formulario de Contáctenos -->
+
+
                     </div>
+
                 </div>
                 <!-- Contenedor de Segundo-->
             </div>

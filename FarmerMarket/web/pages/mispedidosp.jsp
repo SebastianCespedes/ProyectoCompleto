@@ -55,6 +55,14 @@
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/Validaciones.js"></script>
         <title>Mis Pedidos - Farmer's Market</title>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Initialize tooltip
+                $('[data-toggle="tooltip"]').tooltip({
+                    placement: 'top'
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container">

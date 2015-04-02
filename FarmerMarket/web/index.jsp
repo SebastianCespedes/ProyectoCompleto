@@ -16,7 +16,7 @@
         <title>Inicio - FarmerMarket</title>
         <link rel="shortcut icon" href="img/favicon.ico">
         <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
-        <script type="text/javascript" src="js/Validaciones.js"></script>
+        <script type="text/javascript" src="js/Validacion.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>        
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
@@ -176,41 +176,58 @@
                             <!--Inicio Contendor del fomulario-->
                             <div class="container-fluid">
                                 <div class="col-md-12">
-                                    <form action="ControladorUsuarios" method="post">
+                                    <form action="ControladorUsuarios" method="post" autocomplete="false" >
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback" id="inpRol">
                                                 <label for="ruRol" class="control-label">Yo soy:</label>
                                                 <select name="ruRol" id="ruRol" class="form-control" tabindex="1" required autofocus onblur="validarRol(this)">
-                                                    <option value="0" selected="true">Seleccione un rol</option>
+                                                    <option value="" selected="true">Seleccione un rol</option>
                                                     <option value="1">Productor</option>
                                                     <option value="2">Cliente</option>                                                        
                                                 </select>
-                                            </div>
-                                            <div class="form-group has-feedback" id="inpDocumento">
-                                                <label class="control-label" for="ruDocumento">N° de Documento:</label>
-                                                <input type="text" class="form-control" tabindex="2" name="ruDocumento"
-                                                       id="ruDocumento" value="" maxlength="10"  onblur="validarDocumento(this);
-                                                               validarUsuarioYaRegistrado(this)">
-                                                <i id="iconFeedbackDocumento"></i>
-                                            </div>                           
+                                            </div>                                                                       
 
                                             <div class="form-group has-feedback" id="inpNombres">
                                                 <label class="control-label" for="ruNombres">Nombres:</label>
-                                                <input type="text" class="form-control" name="ruNombres" maxlength="30" onblur="validarNombres(this);"
-                                                       id="ruNombres" tabindex="3" value="" >
+                                                <input type="text" class="form-control" name="ruNombres" maxlength="30" onblur="validarNombres(this);" 
+                                                       id="ruNombres" tabindex="2" value="" >
                                                 <i id="iconFeedbackNombres"></i>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpApellidos">
                                                 <label class="control-label" for="ruApellidos">Apellidos:</label>
                                                 <input type="text" class="form-control" name="ruApellidos" maxlength="30"
-                                                       id="ruApellidos" tabindex="4" value="" onblur="validarApellidos(this)">
+                                                       id="ruApellidos" tabindex="3" value="" onblur="validarApellidos(this)">
                                                 <i id="iconFeedbackApellidos"></i>
                                             </div>
 
+                                            <div class="form-group has-feedback" id="inpDocumento">
+                                                <label class="control-label" for="ruDocumento">N° de Documento:</label>
+                                                <input type="text" class="form-control" tabindex="4" name="ruDocumento"
+                                                       id="ruDocumento" value="" maxlength="10" onblur="validarDocumento(this)">
+                                                <i id="iconFeedbackDocumento"></i>
+                                            </div>
+
+                                            <div class="form-group has-feedback" id="inpClave">
+                                                <label class="control-label" for="ruClave">Contraseña:</label>
+                                                <input type="password" class="form-control" value="" name="ruClave" id="ruClave" tabindex="5"  onblur="validarClave(this)" >
+                                                <i id="iconFeedbackClave"></i>
+                                            </div>                                           
+
+
+                                            <div class="form-group has-feedback" id="inpDireccion">
+                                                <label class="control-label" for="ruDireccion">Dirección:</label>
+                                                <input type="text" class="form-control" name="ruDireccion" 
+                                                       id="ruDireccion" tabindex="6" value="" onblur="validarDireccion(this)" >
+                                                <i id="iconFeedbackDireccion"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">  
+
                                             <div class="form-group has-feedback" id="inpCorreo">
                                                 <label class="control-label" for="ruCorreo">Correo:</label>
-                                                <input type="text" class="form-control" name="ruCorreo" tabindex="5" onblur="validarCorreo(this);
+                                                <input type="text" class="form-control" name="ruCorreo" tabindex="7" onblur="validarCorreo(this);
                                                         validaCorreoYaRegistrado(this)"
                                                        id="ruCorreo" value="">
                                                 <i id="iconFeedbackCorreo"></i>
@@ -218,23 +235,14 @@
 
                                             <div class="form-group has-feedback" id="inpCorreoRepetido">
                                                 <label class="control-label" for="ruCorreo2">Repetir Correo:</label>
-                                                <input type="text" class="form-control" name="ruCorreo2" tabindex="6" onblur="validarRepetirCorreo(this)"
+                                                <input type="text" class="form-control" name="ruCorreo2" tabindex="8" onblur="validarRepetirCorreo(this)"
                                                        id="ruCorreo2" value="" >
                                                 <i id="iconFeedbackCorreo2"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback" id="inpDireccion">
-                                                <label class="control-label" for="ruDireccion">Dirección:</label>
-                                                <input type="text" class="form-control" name="ruDireccion" 
-                                                       id="ruDireccion" tabindex="7" value="" onblur="validarDireccion(this)" >
-                                                <i id="iconFeedbackDireccion"></i>
                                             </div>
 
                                             <div class="form-group has-feedback" id="inpDepartamento">
                                                 <label class="control-label" for="ruDepartamento">Departamento:</label>
-                                                <select name="ruDepartamento" id="ruDepartamento" class="form-control" tabindex="7" onblur="validarDepartamento(this);" onchange="getSubcategorias(this.value);" >
+                                                <select name="ruDepartamento" id="ruDepartamento" class="form-control" tabindex="9" onblur="validarDepartamento(this);" onchange="getSubcategorias(this.value);" >
                                                     <option value="">Seleccione un departamento</option>
                                                     <%
                                                         ArrayList<DepartamentoDto> listDepartamentos;
@@ -250,38 +258,39 @@
 
                                             <div class="form-group has-feedback" id="inpCiudad">
                                                 <label class="control-label" for="ruCiudad">Ciudad:</label>
-                                                <select name="ruCiudad" id="ruCiudad" class="form-control" tabindex="7" onblur="validarCiudad(this)" >
+                                                <select name="ruCiudad" id="ruCiudad" class="form-control" tabindex="10" onblur="validarCiudad(this)" >
                                                     <option value="">Seleccione una ciudad</option>
-                                                    
+
                                                 </select>
                                             </div>
 
-                                            <div class="form-group has-feedback" id="inpClave">
-                                                <label class="control-label" for="ruClave">Contraseña:</label>
-                                                <input type="password" class="form-control" value="" name="ruClave" id="ruClave" tabindex="8"  onblur="validarClave(this)" onclick="validarClave(this)">
-                                                <i id="iconFeedbackClave"></i>
-                                            </div>
+
 
                                             <div class="form-group has-feedback" id="inpFecha">
                                                 <label class="control-label" for="ruFechaNacimiento">Fecha Nacimiento</label>
-                                                <input type="date" class="form-control" name="ruFechaNacimiento" id="ruFecha" tabindex="9" onblur="validarFecha(this)">
+                                                <input type="date" class="form-control" name="ruFechaNacimiento" id="ruFecha" tabindex="11" onblur="validarFecha(this)">
                                                 <i id="iconFeedbackFecha"></i>
                                             </div>
 
-                                            <div class="checkbox has-feedback">
+                                            <div class="checkbox has-feedback" id="inpTerminos">
                                                 <label class="control-label">
-                                                    <input  type="checkbox" tabindex="10"> Acepto <a href="#" data-toggle="modal" data-target="#modalTerminos">Terminos y Condiciones</a>
+                                                    <input  type="checkbox" id="ruTerminos" name="ruTerminos" tabindex="12" onblur="validarTerminos()"> Acepto <a href="#" data-toggle="modal" data-target="#modalTerminos">Terminos y Condiciones</a>
                                                 </label>
                                             </div>
 
-                                            <input type="submit" id="botonRegistro" name="botonRegistro" class="btn btn-success" value="Registrarme">
+                                            <input type="submit" id="botonRegistro" name="botonRegistro" class="btn btn-success" value="Registrarme" >
                                         </div>
                                     </form>
+
                                 </div>
+
                             </div>                
                             <!--Fin Contendor del fomulario-->
+                            <br>
                         </div>
+
                     </div>
+
                 </div>
                 <!--Fin Ventana Modal Registro-->
             </div>
@@ -301,19 +310,22 @@
                             <div class="container-fluid">
                                 <form method="POST" action="ControladorSesiones">
                                     <div class="col-md-12">
-                                        <div class="form-group">
+                                        <div class="form-group" id="iuDocumento">
                                             <label class="control-label" for="isDocumento">N° Documento</label>
                                             <input type="text" class="form-control" id="isDocumento" value=""
-                                                   name="isDocumento" maxlength="10" placeholder="Ingrese su documento">
+                                                   name="isDocumento" maxlength="10" placeholder="Ingrese su documento" onblur="validarDocumentoIngreso(this)">
+                                            <i id="inFeedbackDocumento"></i>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="iuClave">
                                             <label class="control-label" for="isClave">Contraseña</label>
-                                            <input type="password" class="form-control" id="isClave" value="" name="isClave" placeholder="Ingrese su contraseña">
+                                            <input type="password" class="form-control" id="isClave" value="" name="isClave" placeholder="Ingrese su contraseña" onblur="validarClaveIngreso(this)">
+                                            <i id="inFeedbackClave"></i>
                                             <br>
                                             <em><a href="#" data-toggle="modal" data-target="#modalRecuperarClave" class="text-primary">¿Olvido su contraseña?</a></em>
+
                                         </div>
                                         <center>
-                                            <input type="submit" name="botonIniciar" class="btn btn-primary" value="Ingresar">
+                                            <input type="submit" name="botonIniciar" id="botonIniciar" class="btn btn-primary" value="Ingresar">
                                         </center>
                                         <br>
                                     </div>                                        
@@ -354,20 +366,23 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title text-center text-success" id="myModalLabel">Recuperar contraseña</h4>
                             </div>
-                            <div class="modal-body">
-                                <form method="POST" action="GestionUsuarios" class="form-horizontal" id="formRecuperarClave">
-                                    <div class="form-group">
-                                        <label for="rcCorreo" class="col-sm-4 control-label">Correo Electrónico:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rcCorreo" name="rcCorreo" value=""
-                                                   placeholder="Ingrese su correo electrónico" onblur="validarCorreo(this);">
-                                        </div>
-                                    </div>
-                                    <input type="hidden" class="form-control" name="rcEnviar" value="ok">
+                            <div class="container-fluid">
+                                <form method="POST" action="#" id="formRecuperarClave" >
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="eCorreo">                                            
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="control-label">Correo Electrónico:</label>
+                                                <input type="text" class="form-control" id="rcCorreo" name="rcCorreo" value=""
+                                                       placeholder="Ingrese su correo electrónico" onblur="validarOlvidada(this)">
+                                            </div>                                            
+                                        </div>                            
+                                        <input type="hidden" class="form-control" id="rcEnviar" name="rcEnviar" value="ok">
+                                        <br>
+                                    </div>                                        
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" onclick="enviarFormulario('formRecuperarClave')">Recuperar Contraseña</button>
+                                <button type="button" class="btn btn-success" id="recuperar" onclick="enviarFormulario('formRecuperarClave')">Recuperar Contraseña</button>
                             </div>
                         </div>
                     </div>

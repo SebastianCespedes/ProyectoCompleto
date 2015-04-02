@@ -59,6 +59,7 @@
         <script type="text/javascript" src="../js/Validaciones.js"></script>
         
         <title>Mis Productos - Farmer's Market</title>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script>
             $(function() {
                 $("#slider-range-min").slider({
@@ -73,6 +74,7 @@
                 $("#amount").val("N° de Kilos " + $("#slider-range-min").slider("value"));
             });
         </script>
+       
     </head>
     <body>
         <div class="container">
@@ -102,7 +104,7 @@
 
                                      %>
                                      src="../img/avatars/user.png"
-                                     data-toggle="tooltip" title="Precione click para subir una foto"
+                                     data-toggle="tooltip" title=""
                                      <%               }
                                      %>
                                      alt="Mi foto de perfil">
@@ -165,7 +167,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%> <span class="fa fa-chevron-down"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li class="text-center"><a href="../GestionSesiones?op=salir">Cerrar Sesión</a></li>
+                                            <li class="text-center"><a href="../ControladorSesiones?op=salir">Cerrar Sesión</a></li>
                                             <li class="divider"></li>
                                             <li class="text-center"><a href="perfil.jsp">Mi Perfil</a></li>
                                             <li class="divider"></li>
@@ -242,7 +244,9 @@
                                         <h4 class="media-heading"><%= p.getNombres()%></h4>                                        
                                         <p><strong>Categoria: </strong> <%= faOfer.obtenerNombreDeCategoriaPorId(p.getIdCategoria())%></p>
                                         <button type="button" onclick="getFormOfertar(<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalOfertarProducto" class="btn btn-success">Ofertar</button>
-                                        <a href="../ControladorOferta?op=eliaso&idProductoAso=<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" class="btn btn-danger">Eliminar Producto</a>
+                                        <button type="button" onclick="getFormOfertar(<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalConfirmarEliminarProducto" class="btn btn-danger">Eliminar</button>
+                                        <form action="../ControladorOferta?op=eliaso&idProductoAso=<%=faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" method="post" id="EliminarProducto">
+                                        </form>                                       
                                     </div>
                                 </div>                                        
                             </div>                            
@@ -437,6 +441,25 @@
                             </div>
                         </div>
                         <!-- Ofertar un producto -->
+                        <!-- Modal para confirmación de asociar productos -->
+                        <div>
+                            <div class="modal fade bs-example-modal-sm" id="modalConfirmarEliminarProducto" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center" id="myModalLabel">¿Está seguro que desea eliminar este producto?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <center>
+                                                <button type="button" class="btn btn-success" onclick="enviarFormulario('EliminarProducto');">Sí</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>                                                
+                                            </center>                                            
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin de modal para confirmación de asociar productos -->
                     </div>
                     <!-- Fin de Ventanas Modales -->
                 </div>
