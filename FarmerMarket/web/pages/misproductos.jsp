@@ -134,7 +134,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
                         </li>
                         <%
                             }
@@ -244,9 +244,10 @@
                                         <h4 class="media-heading"><%= p.getNombres()%></h4>                                        
                                         <p><strong>Categoria: </strong> <%= faOfer.obtenerNombreDeCategoriaPorId(p.getIdCategoria())%></p>
                                         <button type="button" onclick="getFormOfertar(<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalOfertarProducto" class="btn btn-success">Ofertar</button>
-                                        <button type="button" onclick="getFormOfertar(<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalConfirmarEliminarProducto" class="btn btn-danger">Eliminar</button>
+                                        <!--<button type="button" onclick="getFormOfertar(<%=faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalConfirmarEliminarProducto" class="btn btn-danger">Eliminar</button>
                                         <form action="../ControladorOferta?op=eliaso&idProductoAso=<%=faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" method="post" id="EliminarProducto">
-                                        </form>                                       
+                                        </form>-->
+                                        <a href="../ControladorOferta?op=eliaso&idProductoAso=<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" class="btn btn-danger" id="eliminar">Eliminar Producto</a>
                                     </div>
                                 </div>                                        
                             </div>                            
@@ -387,14 +388,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <form class="form-horizontal">
-                                            <legend class="text-center" id="formularioPublicarOferta"></legend>
+                                            <legend class="text-center" id="formularioPublicarOferta"></legend>                                            
                                             <div class="form-group">
                                                 <label for="opPrecioVenta" class="col-sm-3 control-label">Precio Unitario</label>
                                                 <div class="col-sm-9">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">$</span>
                                                         <input type="number" class="form-control" name="opPrecioVenta" id="opPrecioVenta" aria-label="Amount (to the nearest dollar)">
-                                                        <span class="input-group-addon">.00 * Kilo</span>
+                                                        <span class="input-group-addon" >.00 * Kilo</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -451,7 +452,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <center>
-                                                <button type="button" class="btn btn-success" onclick="enviarFormulario('EliminarProducto');">Sí</button>
+                                                <button type="button" class="btn btn-success" onclick="enviarFormulario('eliminar');">Sí</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>                                                
                                             </center>                                            
                                         </div>                                        

@@ -21,7 +21,7 @@ public class PermisoDao {
 
     public List obtenerPermisosPorRol(int rol, Connection unaConexion) {
         ArrayList<PermisoDto> permisos = null;
-        String sql = "SELECT p.idPermisos, p.permisos, p.url "
+        String sql = "SELECT p.idPermisos, p.permisos, p.url, p.icono "
                 + "FROM `permisos` as p JOIN permisosrol as pr ON (p.idPermisos = pr.idPermisos) "
                 + "JOIN roles as r ON (r.idRol = pr.idRol) WHERE r.idRol = ?";
         try {
@@ -35,6 +35,7 @@ public class PermisoDao {
                 temp.setIdPermiso(rs.getInt("idPermisos"));
                 temp.setPermiso(rs.getString("permisos"));
                 temp.setUrl(rs.getString("url"));
+                temp.setIcono(rs.getString("icono"));
                 permisos.add(temp);
             }
         } catch (SQLException sqle) {

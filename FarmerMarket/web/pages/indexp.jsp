@@ -120,7 +120,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%> <i class="fa fa-home"></i></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
                         </li>
                         <%
                             }

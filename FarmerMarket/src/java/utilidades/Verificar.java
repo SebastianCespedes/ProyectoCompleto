@@ -8,6 +8,7 @@ package utilidades;
 import java.sql.Connection;
 import java.util.ArrayList;
 import modulo.ofertas.FOferta;
+import modulo.ofertas.dto.OfertaDto;
 import modulo.ofertas.dto.ProductoDto;
 import modulo.usuarios.FUsuario;
 import modulo.usuarios.dto.PermisoDto;
@@ -40,6 +41,12 @@ public class Verificar {
 //            System.out.println("nada");
 //        }
         
-        System.out.println(fa.obtenerNumeroDeProductosAsociadosPorProducto(1073247453));
+//        System.out.println(fa.obtenerNumeroDeProductosAsociadosPorProducto(1073247453));
+        
+        ArrayList<OfertaDto> of = new ArrayList();
+        of = (ArrayList<OfertaDto>) fa.obtenerOfertas();
+        for(OfertaDto a: of){
+            System.out.println(a);
+        }
     }
 }

@@ -129,7 +129,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
                         </li>
                         <%
                             }

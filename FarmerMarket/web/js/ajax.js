@@ -94,5 +94,34 @@ function resultadoFormOfertar() {
     }
 }
 /* 
- *  Fin de cargar Ciudades en Pos de un Departamento
+ *  Fin de cargar ofertar
  */
+
+// Realizar Pedido
+var xmlHttp;
+function getPedido(idPedido) {
+
+    if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("El navegador no soporta Ajax!");
+        return;
+    }
+
+    var url = "../ajax/cargarPedido.jsp?idOferta=" + idPedido;
+    xmlHttp.onreadystatechange = resultadoPedido;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+
+}
+
+function resultadoPedido() {
+    if (xmlHttp.readyState === 4) {
+        document.getElementById("formularioRealizarPedido").innerHTML = xmlHttp.responseText;
+    }
+}
+
+// fin Realizar Pedido

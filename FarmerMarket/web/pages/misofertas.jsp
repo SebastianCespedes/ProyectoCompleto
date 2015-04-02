@@ -121,7 +121,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
                         </li>
                         <%
                             }
@@ -154,7 +154,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%> <span class="fa fa-chevron-down"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li class="text-center"><a href="../GestionSesiones?op=salir">Cerrar Sesión</a></li>
+                                            <li class="text-center"><a href="../ControladorSesiones?op=salir">Cerrar Sesión</a></li>
                                             <li class="divider"></li>
                                             <li class="text-center"><a href="perfil.jsp">Mi Perfil</a></li>
                                             <li class="divider"></li>

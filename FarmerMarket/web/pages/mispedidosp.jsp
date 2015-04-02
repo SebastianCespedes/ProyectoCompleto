@@ -122,7 +122,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
                         </li>
                         <%
                             }
@@ -155,7 +155,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%> <span class="fa fa-chevron-down"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li class="text-center"><a href="../GestionSesiones?op=salir">Cerrar Sesión</a></li>
+                                            <li class="text-center"><a href="../ControladorSesiones?op=salir">Cerrar Sesión</a></li>
                                             <li class="divider"></li>
                                             <li class="text-center"><a href="perfil.jsp">Mi Perfil</a></li>
                                             <li class="divider"></li>
@@ -189,7 +189,7 @@
                     <!-- Miga de pan -->
                     <ol class="breadcrumb">
                         <li><a href="indexp.jsp">Inicio</a></li>
-                        <li class="active">Mis pedidos</li>                    
+                        <li class="active"><a href="mispedidosp.jsp">Mis pedidos</a></li>                    
                     </ol>
                     <!-- Fin de miga de pan -->
 
@@ -258,7 +258,7 @@
 
                                             <!-- link para modal para mostrar novedades -->
                                             <a href="#">
-                                                <i class="fa fa-android pull-right"> </i> <span class="pull-right text-success">Ver Novedad(es)</span>
+                                                <i class="fa fa-android pull-right"> </i> <span class="pull-right text-success">Ver Promocion(es)</span>
                                             </a>                                                                                        
                                             <!-- Fin de novedades -->
                                             &nbsp;

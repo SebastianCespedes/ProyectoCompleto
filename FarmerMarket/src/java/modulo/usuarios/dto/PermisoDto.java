@@ -9,6 +9,7 @@ public class PermisoDto {
     private int idPermiso = 0;
     private String permiso = "";
     private String url = "";
+    private String icono = "";
 
     /**
      * @return the idPermiso
@@ -50,6 +51,20 @@ public class PermisoDto {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * @return the icono
+     */
+    public String getIcono() {
+        return icono;
+    }
+
+    /**
+     * @param icono the icono to set
+     */
+    public void setIcono(String icono) {
+        this.icono = icono;
     }
 
 }

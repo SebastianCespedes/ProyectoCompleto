@@ -19,13 +19,13 @@ import java.util.List;
  * @author kennross
  */
 public class OfertaDao {
-        
+
     PreparedStatement pstm = null;
     int rtdo;
     ResultSet rs = null;
     String mensaje = "";
     String sqlTemp = "";
-    
+
     public List obtenerOfertasPorProductor(long idProductor, Connection unaConexion) {
         ArrayList<OfertaDto> ciudades = null;
         sqlTemp = "";
@@ -37,7 +37,7 @@ public class OfertaDao {
             ciudades = new ArrayList();
             while (rs.next()) {
                 OfertaDto temp = new OfertaDto();
-                
+
                 ciudades.add(temp);
             }
         } catch (SQLException ex) {
@@ -45,8 +45,57 @@ public class OfertaDao {
         }
         return ciudades;
     }
-        
+
+    public List obtenerOfertas(Connection unaConexion) {
+        ArrayList<OfertaDto> ofertas = new ArrayList();
+
+        try {
+            pstm = unaConexion.prepareStatement("select o.idOferta as oferta, concat(u.nombres, ' ' , u.apellidos) as productor, i.cantidad as cantidad,  p.nombres as producto, o.precioVenta as precio, o.fechaFin as vence,  pre.descripcion as presentacion from ofertas as o \n"
+                    + "join productoasociado as pa on o.idProdAsoc = pa.idProdAsoc \n"
+                    + "join presentacion as pre on pre.idPresentacion = o.idPresentacion join productos as p on p.idProducto = pa.idProdAsoc join usuarios as u on u.idUsuario = pa.idUsuario \n"
+                    + "join inventario as i on i.idOferta = o.idOferta;");
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                OfertaDto oferta = new OfertaDto();
+                oferta.setIdOferta(rs.getInt("oferta"));
+                oferta.getProAso().getUsDto().setNombres(rs.getString("productor"));
+                oferta.getProAso().getProDto().setNombres(rs.getString("producto"));
+                oferta.getInDto().setCantidad(rs.getInt("cantidad"));
+                oferta.setPrecioVenta(rs.getFloat("precio"));
+                oferta.setFechaFin(rs.getString("vence"));
+                oferta.getPreDto().setDescripcion(rs.getString("presentacion"));
+                ofertas.add(oferta);
+            }
+        } catch (SQLException ex) {
+
+        }
+        return ofertas;
+    }
     
+    public OfertaDto obtenerOfertaPorId(int idOferta,Connection unaConexion){
+        OfertaDto oferta = new OfertaDto();
+        try{
+            pstm = unaConexion.prepareStatement("select o.idOferta as oferta, concat(u.nombres, ' ' , u.apellidos) as productor, i.cantidad as cantidad,  p.nombres as producto, o.precioVenta as precio, o.fechaFin as vence,  pre.descripcion as presentacion from ofertas as o \n"
+                    + "join productoasociado as pa on o.idProdAsoc = pa.idProdAsoc \n"
+                    + "join presentacion as pre on pre.idPresentacion = o.idPresentacion join productos as p on p.idProducto = pa.idProdAsoc join usuarios as u on u.idUsuario = pa.idUsuario \n"
+                    + "join inventario as i on i.idOferta = o.idOferta where o.idOferta = ?");
+            pstm.setInt(1, idOferta);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                oferta.setIdOferta(rs.getInt("oferta"));
+                oferta.getProAso().getUsDto().setNombres(rs.getString("productor"));
+                oferta.getProAso().getProDto().setNombres(rs.getString("producto"));
+                oferta.getInDto().setCantidad(rs.getInt("cantidad"));
+                oferta.setPrecioVenta(rs.getFloat("precio"));
+                oferta.setFechaFin(rs.getString("vence"));
+                oferta.getPreDto().setDescripcion(rs.getString("presentacion"));
+            }
+        }catch (SQLException ex) {
+            
+        }
+        return oferta;
+    }
+
     public String insertOferta(OfertaDto nuevoOferta, int idProductoAsociado, Connection unaConexion) {
         try {
             //1- idProductoAsociado 2- PrecioVenta 3- Cantidad 4- idPromocion 5- idEstado
@@ -57,8 +106,7 @@ public class OfertaDao {
             pstm.setFloat(2, nuevoOferta.getPrecioVenta());
             pstm.setFloat(3, nuevoOferta.getCantidad());
             pstm.setInt(4, 1);
-            
-            
+
             rtdo = pstm.executeUpdate();
 
             if (rtdo != 0) {

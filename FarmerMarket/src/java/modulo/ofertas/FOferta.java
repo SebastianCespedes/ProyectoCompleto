@@ -40,8 +40,7 @@ public class FOferta {
         this.ofDao = new OfertaDao();
         this.pDao = new ProductoDao();
         this.caDao = new CategoriaDao();
-        this.paDao = new ProductoAsociadoDao();
-        
+        this.paDao = new ProductoAsociadoDao();        
         this.ofDto = new OfertaDto();
         this.pDto = new ProductoDto();        
         this.promoDto = new PromocionDto();
@@ -88,5 +87,13 @@ public class FOferta {
     //Eliminación de registros directamente
     public String eliminarAsociasionDeProducto(int idProductoAso) {
         return paDao.eliminarUnProductoAsociado(idProductoAso, miConexion);
+    }
+    
+    public List obtenerOfertas(){
+        return ofDao.obtenerOfertas(miConexion);
+    }
+    
+    public OfertaDto obtenerOfertaPorId(int idOferta){
+        return ofDao.obtenerOfertaPorId(idOferta, miConexion);
     }
 }

@@ -1062,4 +1062,5 @@ function validarOlvidada(clave) {
 
 function enviarFormulario(nombreForm) {
     document.getElementById(nombreForm).submit();
+//    document.getElementsByClassName(nombreForm).submit();
 }
