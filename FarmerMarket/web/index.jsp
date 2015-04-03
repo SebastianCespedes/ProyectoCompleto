@@ -19,8 +19,7 @@
         <script type="text/javascript" src="js/Validacion.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>        
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">        
         <script type="text/javascript" src="js/ajax.js"></script>
         <script type="text/javascript" src="js/validacionesAjax.js"></script>
     </head>
@@ -204,7 +203,7 @@
                                             <div class="form-group has-feedback" id="inpDocumento">
                                                 <label class="control-label" for="ruDocumento">N° de Documento:</label>
                                                 <input type="text" class="form-control" tabindex="4" name="ruDocumento"
-                                                       id="ruDocumento" value="" maxlength="10" onblur="validarDocumento(this)">
+                                                       id="ruDocumento" value="" maxlength="10" onblur="validarDocumento(this)" >
                                                 <i id="iconFeedbackDocumento"></i>
                                             </div>
 

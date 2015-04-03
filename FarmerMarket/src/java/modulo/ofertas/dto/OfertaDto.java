@@ -17,6 +17,7 @@ public class OfertaDto {
     private float cantidad = 0.f;
     private int idPromocion = 0;
     private int idPresentacion = 0;
+    private PromocionDto proDto = new PromocionDto();
     private PedidoDto peDto = new PedidoDto();
     private InventarioDto inDto = new InventarioDto();
     private ProductoAsociadoDto proAso = new ProductoAsociadoDto();
@@ -24,8 +25,10 @@ public class OfertaDto {
 
     @Override
     public String toString() {
-        return "OfertaDto{" + "idOferta=" + idOferta + ", idProdAsoc=" + idProdAsoc + ", precioVenta=" + precioVenta + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", cantidad=" + cantidad + ", idPromocion=" + idPromocion + ", idPresentacion=" + idPresentacion + ", peDto=" + peDto + ", inDto=" + inDto + ", proAso=" + proAso + ", preDto=" + preDto + '}';
+        return "OfertaDto{" + "idOferta=" + idOferta + ", idProdAsoc=" + idProdAsoc + ", precioVenta=" + precioVenta + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", cantidad=" + cantidad + ", idPromocion=" + idPromocion + ", idPresentacion=" + idPresentacion + ", proDto=" + proDto + ", peDto=" + peDto + ", inDto=" + inDto + ", proAso=" + proAso + ", preDto=" + preDto + '}';
     }
+
+  
 
     /**
      * @return the idOferta
@@ -193,6 +196,20 @@ public class OfertaDto {
      */
     public void setPreDto(PresentacionDto preDto) {
         this.preDto = preDto;
+    }
+
+    /**
+     * @return the proDto
+     */
+    public PromocionDto getProDto() {
+        return proDto;
+    }
+
+    /**
+     * @param proDto the proDto to set
+     */
+    public void setProDto(PromocionDto proDto) {
+        this.proDto = proDto;
     }
 
 }

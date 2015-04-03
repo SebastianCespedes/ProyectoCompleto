@@ -4,7 +4,7 @@
 
 var xmlHttp;
 function getSubcategorias(idDepartamento) {
-
+    
     if (window.XMLHttpRequest) {
         xmlHttp = new XMLHttpRequest();
     }
@@ -99,7 +99,7 @@ function resultadoFormOfertar() {
 
 // Realizar Pedido
 var xmlHttp;
-function getPedido(idPedido) {
+function getPedido(idOferta) {
 
     if (window.XMLHttpRequest) {
         xmlHttp = new XMLHttpRequest();
@@ -111,7 +111,7 @@ function getPedido(idPedido) {
         return;
     }
 
-    var url = "../ajax/cargarPedido.jsp?idOferta=" + idPedido;
+    var url = "../ajax/cargarPedido.jsp?idOferta=" + idOferta;
     xmlHttp.onreadystatechange = resultadoPedido;
     xmlHttp.open("GET", url, true);
     xmlHttp.send(null);
@@ -125,3 +125,66 @@ function resultadoPedido() {
 }
 
 // fin Realizar Pedido
+
+// Promociones
+//var xmlHttp;
+//function getOfertaNovedad(idOferta) {
+//
+//    if (window.XMLHttpRequest) {
+//        xmlHttp = new XMLHttpRequest();
+//    }
+//    else if (window.ActiveXObject) {
+//        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+//    } else {
+//        alert("El navegador no soporta Ajax!");
+//        return;
+//    }
+//
+//    var url = "../ajax/CargarPromociones.jsp?idOferta=" + idOferta;
+//    xmlHttp.onreadystatechange = resultadoPromociones;
+//    xmlHttp.open("GET", url, true);
+//    xmlHttp.send(null);
+//
+//}
+//
+//function resultadoPromociones() {
+//    if (xmlHttp.readyState === 4) {
+//        document.getElementById("formularioPromociones").innerHTML = xmlHttp.responseText;
+//    }
+//}
+
+// fin Promociones
+//var intevalo = setInterval('getCantidad()',1000);
+//// Realizar Pedido
+//var xmlHttp;
+//function getCantidad(){
+//    var idOferta = document.getElementById("idOferta");
+//    if (window.XMLHttpRequest) {
+//        xmlHttp = new XMLHttpRequest();
+//    }
+//    else if (window.ActiveXObject) {
+//        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+//    } else {
+//        alert("El navegador no soporta Ajax!");
+//        return;
+//    }
+//
+//    var url = "../ajax/validarCantidad.jsp?idOferta=" + idOferta.value;
+//    xmlHttp.onreadystatechange = resultadoCantidad;
+//    xmlHttp.open("GET", url, true);
+//    xmlHttp.send(null);
+//
+//}
+//
+//function resultadoCantidad() {
+//    if (xmlHttp.readyState === 4) {
+//        document.getElementById("cantidad").innerHTML = xmlHttp.responseText;
+//    }
+//}
+
+// fin Realizar Pedido
+
+
+
+
+   

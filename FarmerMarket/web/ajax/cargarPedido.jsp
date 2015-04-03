@@ -18,10 +18,11 @@
 
             FOferta faOfer = new FOferta();
             OfertaDto ofDto = faOfer.obtenerOfertaPorId(Integer.parseInt(request.getParameter("idOferta")));
-
+            String cantidad = Integer.toString(ofDto.getInDto().getCantidad());            
+            
         %>
 
-        <strong>Pedido sobre <%= ofDto.getInDto().getCantidad()+ " " + ofDto.getPreDto().getDescripcion()%>s de </strong> (<%=ofDto.getProAso().getProDto().getNombres()%>)
-        <input type="hidden" name="idOferta" value="<%=ofDto.getIdOferta()%>">
+        <strong><%=" " + ofDto.getPreDto().getDescripcion()%>s de </strong> (<%=ofDto.getProAso().getProDto().getNombres()%>)<strong> disponibles </strong><strong id="cantidad"><%=cantidad%></strong> 
+        <input type="hidden" name="idOfer" id="idOferta" value="<%=ofDto.getIdOferta()%>">
     </body>
 </html>

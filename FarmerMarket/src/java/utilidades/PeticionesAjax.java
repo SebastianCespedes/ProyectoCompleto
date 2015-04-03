@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modulo.ofertas.FOferta;
+import modulo.ofertas.dto.OfertaDto;
 import modulo.usuarios.FUsuario;
 import modulo.usuarios.dao.UsuarioDao;
 
@@ -53,8 +55,36 @@ public class PeticionesAjax extends HttpServlet {
 
             //out.print(request.getParameter("correo").trim());
             this.writeResponse(response, respuesta.toString());
+            
+        } else if (request.getParameter("idOferta") != null) {
+
+            FOferta fOfer = new FOferta();
+            String cantidad = fOfer.actualizarCantidad(Integer.parseInt(request.getParameter("idOferta")));
+
+            this.writeResponse(response, cantidad);
+        } else if (request.getParameter("idOfertaP") != null) {
+            FOferta faOfer = new FOferta();
+            OfertaDto ofDto = faOfer.obtenerOfertaPorId(Integer.parseInt(request.getParameter("idOfertaP")));
+            String promocion = ofDto.getProDto().getDescripcion();
+            this.writeResponse(response, promocion);
+        } else if (request.getParameter("idOfertaC") != null && request.getParameter("cantidad") != null) {
+            int cantidad = 0;
+            if (request.getParameter("cantidad").equals("")) {
+                cantidad = 0;
+            } else {
+                cantidad = Integer.parseInt(request.getParameter("cantidad"));
+            }
+            FOferta faOfer = new FOferta();
+            OfertaDto ofDto = faOfer.obtenerOfertaPorId(Integer.parseInt(request.getParameter("idOfertaC")));
+            float calculo = ofDto.getPrecioVenta();
+            calculo = calculo * cantidad;
+            int calculoTotal = (int) calculo;
+            String total = Integer.toString(calculoTotal);
+            this.writeResponse(response, total);
         }
+
     }
+
     public void writeResponse(HttpServletResponse response, String output) throws IOException {
         response.setContentType("text/plain");
         response.setHeader("Cache-Control", "no-cache");

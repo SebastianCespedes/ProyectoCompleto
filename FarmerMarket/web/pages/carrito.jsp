@@ -31,7 +31,7 @@
 
         FUsuario faUsu = new FUsuario();
         FOferta faOfer = new FOferta();
-        String pagActual = "ofertas.jsp";
+        String pagActual = "carrito.jsp";
 
         // Validación para poder entrar
         boolean poderEntrar = false;
@@ -58,6 +58,8 @@
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/Validacion.js"></script>
         <script type="text/javascript" src="../js/validacionesAjax.js"></script>
+        <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <title>Ofertas - Farmer's Market</title>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -65,6 +67,9 @@
                 $('[data-toggle="tooltip"]').tooltip({
                     placement: 'top'
                 });
+            });
+            $(document).ready(function() {
+                $('#rtProductos').dataTable();
             });
         </script>
     </head>
@@ -190,7 +195,7 @@
                     <!-- Miga de pan -->
                     <ol class="breadcrumb">
                         <li><a href="indexp.jsp">Inicio</a></li>
-                        <li class="active"><a href="ofertas.jsp">Ofertas</a></li>                    
+                        <li class="active"><a href="carrito.jsp">Carrito</a></li>                    
                     </ol>
                     <!-- Fin de miga de pan -->
 
@@ -211,76 +216,52 @@
                     <!-- Contenedor de contenido especifico -->
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-9">
-                                <!-- Titutlo -->
-                                <div class="page-header">
-                                    <h2 class="text-center">Ofertas</h2>
-                                </div>                                
-                                <%
-                                    ArrayList<OfertaDto> ofertas = new ArrayList();
-                                    ofertas = (ArrayList<OfertaDto>) faOfer.obtenerOfertas();
-                                    for (OfertaDto oferta : ofertas) {
+                            <div class="col-md-10">
+                                <form method="GET" action="../ControladorOferta" id="formAsociarProductos" >                                    
+                                    <legend class="text-center">Seleccione los productos a ofertar</legend>                                    
+                                    <table class="table table-hover" id="rtProductos">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><a href="" class="btn btn-danger">Quitar</a></td>
+                                            </tr>                                        
 
-                                %>
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
-                                        <h2 class="panel-title">
-                                            Por <em><strong><a href="#"><%=oferta.getProAso().getUsDto().getNombres()%></a></strong></em>                                            
-                                        </h2>
-                                    </div>
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" name="apidProductor" value="">
+                                    <input type="hidden" name="apEnviar" value="Asociar">                                   
+                                    <legend></legend>
+                                    <div class="text-right">
+                                        <label for="opPrecioVenta" class="col-sm-1 control-label text-right">Total:</label>
+                                        <div class="text-right row">
+                                            <div class="input-group col-md-3 text-right">
+                                                <span class="input-group-addon">$</span>
+                                                <p class="form-control" readonly="true" name="Total" id="total"></p>
+                                                <span class="input-group-addon">Pesos</span>
+                                                
+                                            </div>                                           
+                                            <button type="button" class="btn btn-success">Pedir</button><br><br>
+                                            <legend></legend>
+                                        </div>
+                                    </div>                     
+       
 
-
-                                    <div class="panel-body">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-
-                                                    <th>Producto</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Precio por producto</th>
-                                                    <th>Presentación</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr>                                                    
-                                                    <td><%=oferta.getProAso().getProDto().getNombres()%></td>
-                                                    <td><%=oferta.getInDto().getCantidad()%></td>
-                                                    <th><%=oferta.getPrecioVenta()%></th>
-                                                    <td><%=oferta.getPreDto().getDescripcion()%></td>                                                    
-                                                </tr>                                                
-                                            </tbody>                                            
-                                        </table>
-                                        <span class="lead">Fecha de vencimiento:</span> <%=oferta.getFechaFin()%>
-
-                                    </div>                                    
-                                    <div class="panel-footer">
-                                        <h3 class="panel-title">
-                                            <!-- Novedades -->
-                                            <!-- link para modal para agregar novedad -->
-
-                                            <a href="" data-toggle="modal" data-target="#modalRealizarPedido" onclick="getPedido(<%=oferta.getIdOferta()%>)">
-                                                <i class="fa fa-cart-arrow-down pull-left"></i> <span class="pull-left text-success" >Realizar pedido</span>
-                                            </a>
-
-                                            <!-- link para modal para mostrar novedades -->
-                                            <a href="#" data-toggle="modal" data-target="#modalPromociones" onclick="getOfertaNovedad(<%=oferta.getIdOferta()%>)">
-                                                <i class="fa fa-plus pull-right"> </i> <span class="pull-right text-success">Ver Promocion(es)</span>
-                                            </a>                                                                                        
-                                            <!-- Fin de novedades -->
-                                            &nbsp;
-                                        </h3>
-                                    </div>
-                                </div>
-                                <%                                        }
-                                %>
-                                <!-- Fin de formato de un pedido -->
-
+                                </form>
                             </div>
 
                             <!-- Publicidad -->
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <img src="../img/bann.jpg" alt="Publicidad de frutas">                                
                             </div>
                             <!-- Fin de publicidad -->
@@ -397,69 +378,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Fin de formulario de Contáctenos -->
-
-                        <!-- Listado de novedades por pedido -->
-                        <div class="modal fade" id="modalPromociones">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h3 class="modal-title">Promociones de la oferta</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4 class="text-center" id="formularioPromociones"></h4>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de listado de novedades por pedido -->
-                    </div>
-                    <!--modal Realizar pedido -->
-                    <div class="modal fade" id="modalRealizarPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h3 class="modal-title text-center" id="myModalLabel">Realizar Pedido</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal">
-                                        <legend class="text-center" id="formularioRealizarPedido"></legend>
-
-                                        <div class="form-group">
-                                            <label for="opPrecioVenta" class="col-sm-3 control-label">Cantidad a pedir</label>
-                                            <div class="col-sm-9">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">#</span>
-                                                    <input type="number" class="form-control" name="cantidadPedir" id="cantidadPedir" value="0" onblur="getCalculo();"> 
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="opPrecioVenta" class="col-sm-3 control-label">Total :</label>
-                                            <div class="col-sm-9">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">$</span>
-                                                    <p class="form-control" readonly="true" name="Total" id="total"></p>
-                                                    <span class="input-group-addon">Pesos</span>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" onblur="getCantidad()">Cancelar</button>
-                                    <button type="button" class="btn btn-success">Realizar Pedido</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Fin modal realizar pedido-->
+                        <!-- Fin de formulario de Contáctenos -->                       
+                    </div>                    
                 </div>
                 <!-- Contenedor de Segundo-->
             </div>

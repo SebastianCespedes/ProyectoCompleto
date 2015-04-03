@@ -1,8 +1,10 @@
 var req1;
 var req2;
-
+var req3;
+var xmlHttp;
 //Función para verificar si el documento ya está registrado anteriormente
-function validarUsuarioYaRegistrado(campo) {    
+function validarUsuarioYaRegistrado() {
+    var campo = document.getElementById("ruDocumento");
     if (campo.value === '')
         return false;
 
@@ -109,7 +111,7 @@ function callbackCorreo() {
                 document.getElementById('ruFecha').setAttribute('disabled', 'true');
                 document.getElementById('ruDepartamento').setAttribute('disabled', 'true');
                 document.getElementById('ruCiudad').setAttribute('disabled', 'true');
-                document.getElementById('ruRol').setAttribute('disabled', 'true');                
+                document.getElementById('ruRol').setAttribute('disabled', 'true');
                 document.getElementById('ruDireccion').setAttribute('disabled', 'true');
                 document.getElementById('ruTerminos').setAttribute('disabled', 'true');
                 document.getElementById('ruCorreo2').setAttribute('data-toggle', 'tooltip');
@@ -131,7 +133,7 @@ function callbackCorreo() {
                 document.getElementById('ruFecha').removeAttribute('disabled');
                 document.getElementById('ruDepartamento').removeAttribute('disabled');
                 document.getElementById('ruCiudad').removeAttribute('disabled');
-                document.getElementById('ruRol').removeAttribute('disabled');                
+                document.getElementById('ruRol').removeAttribute('disabled');
                 document.getElementById('ruCorreo2').removeAttribute('disabled');
                 document.getElementById('ruDireccion').removeAttribute('disabled');
                 document.getElementById('ruDocumento').removeAttribute('disabled');
@@ -141,5 +143,114 @@ function callbackCorreo() {
     }
 }
 
+////Función para actualizar la cantidad disponible de una oferta
+//function actualizarCantidad() {
+//    var campo = document.getElementById("");
+//    if (campo.value === '')
+//        return false;
+//
+//    var url = "PeticionesAjax?idOferta=" + escape(campo.value);
+//    if (window.XMLHttpRequest) {
+//        req3 = new XMLHttpRequest();
+//    }
+//    else if (window.ActiveXObject) {
+//        req3 = new ActiveXObject("Microsoft.XMLHTTP");
+//    }
+//    req3.open("Get", url, true);
+//    req3.onreadystatechange = callbackCantidad;
+//    req3.send(null);
+//}
+////Acciones que se desatan en pos de la verificación de la cantidad
+//function callbackCantidad() {
+//    if (req3.readyState === 4) {
+//        if (req3.status === 200) {
+//            if (req3.responseText.toString() !== 0) {
+//                document.getElementById().innerHTML === xmlHttp.responseText.toString();
+//            }
+//
+//        }
+//    }
+//}
+
+var intevalo = setInterval('getCantidad()', 1000);
+// Realizar Pedido
+var xmlHttp;
+function getCantidad() {
+    var campo = document.getElementById("idOferta");   
+
+    if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("El navegador no soporta Ajax!");
+        return;
+    }
+
+    var url = "../PeticionesAjax?idOferta=" + escape(campo.value);
+    xmlHttp.onreadystatechange = resultadoCantidad;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+
+}
+
+function resultadoCantidad() {
+    if (xmlHttp.readyState === 4) {
+        document.getElementById("cantidad").innerHTML = xmlHttp.responseText;
+    }
+}
 
 
+var xmlHttp;
+function getOfertaNovedad(idOferta) {
+
+    if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("El navegador no soporta Ajax!");
+        return;
+    }
+
+    var url = "../PeticionesAjax?idOfertaP=" + idOferta;
+    xmlHttp.onreadystatechange = resultadoPromociones;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+
+}
+
+function resultadoPromociones() {
+    if (xmlHttp.readyState === 4) {
+        document.getElementById("formularioPromociones").innerHTML = xmlHttp.responseText;
+    }
+}
+var intevalo = setInterval('getCalculo()', 700);
+var xmlHttp;
+function getCalculo() {
+    var cantidad = document.getElementById("cantidadPedir");
+    var idOferta = document.getElementById("idOferta");    
+    if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("El navegador no soporta Ajax!");
+        return;
+    }
+
+    var url = "../PeticionesAjax?idOfertaC=" + idOferta.value + "&cantidad=" + cantidad.value;
+    xmlHttp.onreadystatechange = resultadoCalculo;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+
+}
+
+function resultadoCalculo() {
+    if (xmlHttp.readyState === 4) {
+        document.getElementById("total").innerHTML = xmlHttp.responseText;
+    }
+}
