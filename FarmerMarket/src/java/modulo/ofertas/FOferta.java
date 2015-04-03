@@ -11,7 +11,12 @@ import modulo.ofertas.dto.ProductoDto;
 import modulo.ofertas.dto.PromocionDto;
 import utilidades.Conexion;
 import java.sql.Connection;
+import java.util.LinkedList;
 import java.util.List;
+import modulo.ofertas.dao.InventarioDao;
+import modulo.ofertas.dao.PresentacionDao;
+import modulo.ofertas.dao.PromocionesDao;
+import modulo.ofertas.dto.PresentacionDto;
 
 /**
  * @author kennross
@@ -26,6 +31,9 @@ public class FOferta {
     ProductoDao pDao = null;
     CategoriaDao caDao = null;
     ProductoAsociadoDao paDao = null;
+    PresentacionDao preDao=null;
+    PromocionesDao proDao=null;
+    InventarioDao invDao = null;
 
     //Clases DataTransferObject (DTO)
     OfertaDto ofDto = null;
@@ -42,6 +50,10 @@ public class FOferta {
         this.pDao = new ProductoDao();
         this.caDao = new CategoriaDao();
         this.paDao = new ProductoAsociadoDao();
+        this.preDao = new PresentacionDao();
+        this.proDao = new PromocionesDao();
+        this.invDao = new InventarioDao();
+        
         this.ofDto = new OfertaDto();
         this.pDto = new ProductoDto();
         this.promoDto = new PromocionDto();
@@ -91,7 +103,7 @@ public class FOferta {
     }
 
     public List obtenerOfertas() {
-        return ofDao.obtenerOfertas(miConexion);
+        return ofDao.listarOfertas(miConexion);
     }
 
     public OfertaDto obtenerOfertaPorId(int idOferta) {
@@ -100,5 +112,33 @@ public class FOferta {
 
     public String actualizarCantidad(int idOferta) {
         return ofDao.actualizarCantidad(idOferta, miConexion);
+    }
+    
+    public String insertarOferta(OfertaDto ofertaDto, int idProductoAsociado) {
+        String resultadoOferta = ofDao.insertOferta(ofertaDto, idProductoAsociado, miConexion);
+        if(resultadoOferta.equals("ok")) {
+            return invDao.insertarInventario(ofDao.obtenerUltimaOfertaInsertada(miConexion), ofertaDto.getCantidad(), miConexion);
+        }
+        return "okno" ;
+    }
+    
+    public LinkedList<PresentacionDto> obtenerTodasLasPresentaciones(){
+        return preDao.listarTodos(miConexion);
+    }
+    
+    public LinkedList<PromocionDto> obtenerTodasLasPromociones(){
+        return proDao.listartodos(miConexion);
+    }
+    
+     public String modificarOferta(int idOferta, int dias, int promocion){
+        return ofDao.modificarOferta(idOferta, dias, promocion, miConexion);
+    }
+    
+    public String eliminarOferta(int idOferta) {
+        return ofDao.eliminarOferta(idOferta, miConexion);
+    }
+    
+    public boolean existeOfertaPorIdProducto(int idProducto){
+        return ofDao.existeOfertasPorIDProducto(idProducto, miConexion);
     }
 }

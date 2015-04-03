@@ -4,6 +4,11 @@
     Author     : kennross
 --%>
 
+<%@page import="java.util.LinkedList"%>
+<%@page import="modulo.ofertas.dto.PromocionDto"%>
+<%@page import="java.util.List"%>
+<%@page import="modulo.ofertas.dto.OfertaDto"%>
+<%@page import="modulo.ofertas.FOferta"%>
 <%@page import="modulo.usuarios.FUsuario"%>
 <%@page import="modulo.usuarios.dto.PermisoDto"%>
 <%@page import="modulo.usuarios.dao.PermisoDao"%>
@@ -18,6 +23,8 @@
 
     UsuarioDto actualUsuario;
     ArrayList<RolDto> rolesActuales;
+
+    FOferta ofertas = new FOferta();
 
     actualUsuario = (UsuarioDto) miSesion.getAttribute("usuarioEntro");
     rolesActuales = (ArrayList<RolDto>) miSesionRoles.getAttribute("roles");
@@ -52,16 +59,9 @@
         <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
+        <script type="text/javascript" src="../js/ofertas.js"></script>
         <script type="text/javascript" src="../js/Validaciones.js"></script>
         <title>Mis Ofertas - Farmer's Market</title>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                // Initialize tooltip
-                $('[data-toggle="tooltip"]').tooltip({
-                    placement: 'top'
-                });
-            });
-        </script>
     </head>
     <body>
         <div class="container">
@@ -121,7 +121,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
                         </li>
                         <%
                             }
@@ -143,7 +143,7 @@
                                     Pedidos <span class="badge info">4</span> 
                                 </a>
                                 <a href="#" class="navbar-brand text-success">
-                                    Ofertas <span class="badge">18</span>
+                                    Ofertas <span class="badge"><%=ofertas.obtenerOfertas().size() %></span>
                                 </a>
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -154,7 +154,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%> <span class="fa fa-chevron-down"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li class="text-center"><a href="../ControladorSesiones?op=salir">Cerrar Sesión</a></li>
+                                            <li class="text-center"><a href="../GestionSesiones?op=salir">Cerrar Sesión</a></li>
                                             <li class="divider"></li>
                                             <li class="text-center"><a href="perfil.jsp">Mi Perfil</a></li>
                                             <li class="divider"></li>
@@ -209,55 +209,42 @@
 
                     <!-- Contenedor de contenido especifico -->
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="../img/publicidad.jpg" alt="..." class="img-thumbnail">
-                            </div>
+                        <div class="row">                          
                             <div class="page-header">
                                 <h1 class="text-center lead">Mis Ofertas <i class="fa fa-shopping-cart"></i></h1>
-                            </div>                        
+                            </div>
+                            <%
+                                List<OfertaDto> misOfertas = ofertas.obtenerOfertas();
+
+                                for (OfertaDto oferta : misOfertas) {
+                            %>
+
                             <div class="col-md-3">                            
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="thumbnail">
-                                            <img src="../img/descarga.svg" alt="...">
+                                            <img src="<%=oferta.getProdDto().getImagen() %>" alt="">
                                             <div class="caption">
-                                                <h3>Thumbnail label</h3>
-                                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-default" role="button">Editar</a></p>
+                                                <h3><%=oferta.getProdDto().getNombres() %></h3>
+                                                <p>
+                                                    <Strong>Categoria:</strong> <%=oferta.getCategoriaDto().getDescripcion() %><br>
+                                                    <strong>Precio:</strong> <%=oferta.getPrecioVenta()%><br>
+                                                    <strong>Fecha Inicio:</strong> <%=oferta.getFechaInicio()%><br>
+                                                    <strong>Fecha Fin:</strong> <%=oferta.getFechaFin()%><br>
+                                                    <strong>Presentación:</strong> <%=oferta.getPreDto().getDescripcion() %><br>
+                                                    <strong>Promoción:</strong> <%=oferta.getProDto().getDescripcion() %> 
+                                                </p>
+                                                <p><a href="#" class="btn btn-default" role="button" data-toggle="modal" data-target="#modalmodificarOferta" 
+                                                      onclick="llenarmodal(<%=oferta.getIdOferta()%>, '<%=oferta.getProdDto().getNombres() %>', '<%=oferta.getCategoriaDto().getDescripcion() %>', <%=oferta.getPrecioVenta()%>, '<%=oferta.getFechaInicio()%>', '<%=oferta.getPreDto().getDescripcion() %>', <%=oferta.getIdPromocion()%>)">Editar</a> 
+                                                <a href="../ControladorOferta?op=eliminarOferta&idOferta=<%= oferta.getIdOferta() %>" class="btn btn-default" role="button">Eliminar</a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="thumbnail">
-                                            <img src="../img/descarga.svg" alt="...">
-                                            <div class="caption">
-                                                <h3>Thumbnail label</h3>
-                                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-default" role="button">Editar</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="thumbnail">
-                                            <img src="../img/descarga.svg" alt="...">
-                                            <div class="caption">
-                                                <h3>Thumbnail label</h3>
-                                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                <p><a href="#" class="btn btn-primary" role="button">Ver Detalles</a> <a href="#" class="btn btn-default" role="button">Editar</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                     <!-- Fin de contenedor de contenido especifico -->
@@ -372,6 +359,99 @@
                             </div>
                         </div>
                         <!-- Fin de formulario de Contáctenos -->
+
+                        <!--Formulario modificar oferta -->
+                        <div>
+                            <div class="modal fade" id="modalmodificarOferta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title text-center" id="myModalLabel">Modificar Ofertas | Farmer's Market</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" method="POST" action="../ControladorOferta" id="formmodificarof">
+                                                <input type="hidden" id="idOfertaSeleccionada" name="idOfertaSeleccionada" value=""/>
+                                                <h3 id="mdproducto" style="text-align: center">Producto</h3>
+                                                <div class="form-group">
+                                                    <label for="mdcategoria" class="col-sm-2 control-label">Categoria</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="mdcategoria"
+                                                               id="mdcategoria" disabled="disabled" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mdprecio" class="col-sm-2 control-label">Precio</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="mdprecio"
+                                                               id="mdprecio" disabled="disabled" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mdfechainicio" class="col-sm-2 control-label">Fecha Inicio</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="mdfechainicio"
+                                                               id="mdfechainicio" disabled="disabled" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mdfechafin" class="col-sm-2 control-label">Fecha Fin</label>
+                                                    <div class="col-sm-10">
+                                                        <label  class="col-sm-2 control-label">Agregar</label>
+                                                        <input type="text" name="mdfechafin" id="mdfechafin" class="form-control" style="display:inline-block; width: 65%" value="" >
+                                                        <label class="col-sm-2 control-label" style="float:none">Días</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mdpresentacion" class="col-sm-2 control-label">Presentación</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="mdpresentacion"
+                                                               id="mdpresentacion" disabled="disabled" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="mdpromocion" class="col-sm-2 control-label">Promoción</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="novedad" id="novedad" onChange="activar(this.form)" class="form-control">
+
+                                                            <%
+                                                                LinkedList<PromocionDto> promociones = ofertas.obtenerTodasLasPromociones();
+                                                                for (PromocionDto n : promociones) {
+                                                            %>
+                                                            <option value="<%=n.getIdPromocion()%>"><%=n.getDescripcion()%> </option>
+                                                            <%
+                                                                }
+
+                                                            %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <input hidden="true" name="mcViene" value="misOfertas">
+                                                
+                                                <input type="hidden" name="mcEnviar" value="ok">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" name="modificarof" id="modificarof" class="btn btn-success" onclick="enviarFormulario('formmodificarof')">Modificar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <!--Fin Modificar oferta-->
                     </div>
                 </div>
                 <!-- Contenedor de Segundo-->
@@ -393,7 +473,6 @@
         </div>
     </body>
 </html>
-<%
-        }
+<%        }
     }
 %>

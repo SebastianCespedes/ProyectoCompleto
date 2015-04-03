@@ -17,6 +17,8 @@ public class OfertaDto {
     private float cantidad = 0.f;
     private int idPromocion = 0;
     private int idPresentacion = 0;
+    private ProductoDto prodDto = new ProductoDto();
+    private CategoriaDto categoria = new CategoriaDto();
     private PromocionDto proDto = new PromocionDto();
     private PedidoDto peDto = new PedidoDto();
     private InventarioDto inDto = new InventarioDto();
@@ -210,6 +212,20 @@ public class OfertaDto {
      */
     public void setProDto(PromocionDto proDto) {
         this.proDto = proDto;
+    }
+
+    /**
+     * @return the prodDto
+     */
+    public ProductoDto getProdDto() {
+        return prodDto;
+    }
+    
+    /**
+     * @return the prodDto
+     */
+    public CategoriaDto getCategoriaDto() {
+        return categoria;
     }
 
 }

@@ -7,9 +7,9 @@ package modulo.pedidos;
 
 import java.sql.Connection;
 import modulo.ofertas.FOferta;
+import modulo.ofertas.dao.InventarioDao;
 import modulo.ofertas.dao.OfertaDao;
 import modulo.ofertas.dto.OfertaDto;
-import modulo.pedidos.dao.InventarioDao;
 import modulo.pedidos.dao.PedidoDao;
 import modulo.pedidos.dto.InventarioDto;
 import modulo.pedidos.dto.PedidoDto;

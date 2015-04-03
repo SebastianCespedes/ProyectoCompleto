@@ -151,7 +151,7 @@
                                     Pedidos <span class="badge info">4</span> 
                                 </a>
                                 <a href="#" class="navbar-brand text-success">
-                                    Ofertas <span class="badge">18</span>
+                                    Ofertas <span class="badge"><%=faOfer.obtenerOfertas().size() %></span>
                                 </a>
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->

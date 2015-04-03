@@ -4,6 +4,9 @@
     Author     : kennross
 --%>
 
+<%@page import="modulo.ofertas.dto.PromocionDto"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="modulo.ofertas.dto.PresentacionDto"%>
 <%@page import="modulo.ofertas.dto.ProductoDto"%>
 <%@page import="modulo.ofertas.FOferta"%>
 <%@page import="modulo.usuarios.FUsuario"%>
@@ -20,6 +23,7 @@
 
     UsuarioDto actualUsuario;
     ArrayList<RolDto> rolesActuales;
+    FOferta fOferta = new FOferta();
 
     actualUsuario = (UsuarioDto) miSesion.getAttribute("usuarioEntro");
     rolesActuales = (ArrayList<RolDto>) miSesionRoles.getAttribute("roles");
@@ -57,9 +61,8 @@
         <script type="text/javascript" src="../js/bootstrap.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/Validaciones.js"></script>
-        
+
         <title>Mis Productos - Farmer's Market</title>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script>
             $(function() {
                 $("#slider-range-min").slider({
@@ -74,7 +77,6 @@
                 $("#amount").val("N° de Kilos " + $("#slider-range-min").slider("value"));
             });
         </script>
-       
     </head>
     <body>
         <div class="container">
@@ -104,7 +106,7 @@
 
                                      %>
                                      src="../img/avatars/user.png"
-                                     data-toggle="tooltip" title=""
+                                     data-toggle="tooltip" title="Precione click para subir una foto"
                                      <%               }
                                      %>
                                      alt="Mi foto de perfil">
@@ -134,7 +136,7 @@
                                 }
                             %>
                             text-left">
-                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso() + " " + temPermiso.getIcono()%></a>
+                            <a href="<%= temPermiso.getUrl()%>"><%= temPermiso.getPermiso()%></a>
                         </li>
                         <%
                             }
@@ -156,7 +158,7 @@
                                     Pedidos <span class="badge info">4</span> 
                                 </a>
                                 <a href="#" class="navbar-brand text-success">
-                                    Ofertas <span class="badge">18</span>
+                                    Ofertas <span class="badge"><%=fOferta.obtenerOfertas().size()%></span>
                                 </a>
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -167,7 +169,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= actualUsuario.getNombres() + " " + actualUsuario.getApellidos()%> <span class="fa fa-chevron-down"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li class="text-center"><a href="../ControladorSesiones?op=salir">Cerrar Sesión</a></li>
+                                            <li class="text-center"><a href="../GestionSesiones?op=salir">Cerrar Sesión</a></li>
                                             <li class="divider"></li>
                                             <li class="text-center"><a href="perfil.jsp">Mi Perfil</a></li>
                                             <li class="divider"></li>
@@ -244,10 +246,7 @@
                                         <h4 class="media-heading"><%= p.getNombres()%></h4>                                        
                                         <p><strong>Categoria: </strong> <%= faOfer.obtenerNombreDeCategoriaPorId(p.getIdCategoria())%></p>
                                         <button type="button" onclick="getFormOfertar(<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalOfertarProducto" class="btn btn-success">Ofertar</button>
-                                        <!--<button type="button" onclick="getFormOfertar(<%=faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>)" href="#" data-toggle="modal" data-target="#modalConfirmarEliminarProducto" class="btn btn-danger">Eliminar</button>
-                                        <form action="../ControladorOferta?op=eliaso&idProductoAso=<%=faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" method="post" id="EliminarProducto">
-                                        </form>-->
-                                        <a href="../ControladorOferta?op=eliaso&idProductoAso=<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" class="btn btn-danger" id="eliminar">Eliminar Producto</a>
+                                        <a href="../ControladorOferta?op=eliaso&idProductoAso=<%= faOfer.obtenerIdPaPorIds(actualUsuario.getIdUsuario(), p.getIdProducto())%>" class="btn btn-danger">Eliminar Producto</a>
                                     </div>
                                 </div>                                        
                             </div>                            
@@ -387,26 +386,36 @@
                                         <h3 class="modal-title text-center" id="myModalLabel">Ofertar Producto</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal">
-                                            <legend class="text-center" id="formularioPublicarOferta"></legend>                                            
+                                        <form class="form-horizontal" action="../ControladorOferta" method="post" id="formofertar">
+                                            <legend class="text-center" id="formularioPublicarOferta"></legend>
                                             <div class="form-group">
                                                 <label for="opPrecioVenta" class="col-sm-3 control-label">Precio Unitario</label>
                                                 <div class="col-sm-9">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">$</span>
-                                                        <input type="number" class="form-control" name="opPrecioVenta" id="opPrecioVenta" aria-label="Amount (to the nearest dollar)">
-                                                        <span class="input-group-addon" >.00 * Kilo</span>
+                                                        <input type="text" class="form-control" name="opPrecioVenta" id="opPrecioVenta" aria-label="Amount (to the nearest dollar)">
+                                                        <select name="Presentacion" id="Presentacion" title="Presentacion" required="required" class="form-control">
+                                                            <option value="">[Selecione la Unidad]</option>
+
+                                                            <%
+                                                                LinkedList<PresentacionDto> presentacion = fOferta.obtenerTodasLasPresentaciones();
+                                                                for (PresentacionDto p : presentacion) {
+                                                            %>
+                                                            <option value="<%=p.getIdPresentacion()%>"> <%=p.getDescripcion()%> </option>
+                                                            <%
+                                                                }
+                                                            %>
+
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">                
-                                                <div class="col-sm-12">
-                                                    <p>
-                                                        <label class="text-center" for="amount">Cantidad Ofertada:</label>
-                                                        <input type="text" id="amount" name="opPrecioVenta" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                                                    </p>
-                                                    <div id="slider-range-min"></div>
+                                            <div class="form-group">  
+                                                <label for="amount" class="col-sm-3 control-label">Cant. Ofertada:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="amount" name="cantidad" style="display:inline-block" class="form-control"/>
                                                 </div>
+                                                <div id="slider-range-min"></div>
                                             </div>
 
                                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">                                                
@@ -422,45 +431,37 @@
                                                         <div class="panel-body">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Descuento del: </span>
-                                                                <input type="number" name="opDetalle" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                                <select name="novedad" id="novedad" onChange="activar(this.form)" class="form-control">
+                                                                    <option value=" " selected="selected">[Seleccione su opcion]</option>
+                                                                    <%
+                                                                        LinkedList<PromocionDto> promociones = fOferta.obtenerTodasLasPromociones();
+                                                                        for (PromocionDto n : promociones) {
+                                                                    %>
+                                                                    <option value="<%=n.getIdPromocion()%>"><%=n.getDescripcion()%> </option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                </select>
                                                                 <span class="input-group-addon">.%</span>
                                                             </div>
                                                             <br>
-                                                            <textarea class="form-control" rows="3" name="opDescripcionPromocion" maxlength="140" placeholder="Una breve descripción de la promoción (Máx 140 carácteres)"></textarea>
                                                             <input type="hidden" name="idProductoAsociado" value="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-success" id="ofertar" name="ofertar" onclick="enviarFormulario('formofertar')">Publicar Oferta</button>
+                                            </div>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-success">Publicar Oferta</button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <!-- Ofertar un producto -->
-                        <!-- Modal para confirmación de asociar productos -->
-                        <div>
-                            <div class="modal fade bs-example-modal-sm" id="modalConfirmarEliminarProducto" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title text-center" id="myModalLabel">¿Está seguro que desea eliminar este producto?</h4>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <center>
-                                                <button type="button" class="btn btn-success" onclick="enviarFormulario('eliminar');">Sí</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>                                                
-                                            </center>                                            
-                                        </div>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de modal para confirmación de asociar productos -->
                     </div>
                     <!-- Fin de Ventanas Modales -->
                 </div>
@@ -484,7 +485,6 @@
         <!-- Fin de Container-->
     </body>
 </html>
-<%
-        }
+<%        }
     }
 %>

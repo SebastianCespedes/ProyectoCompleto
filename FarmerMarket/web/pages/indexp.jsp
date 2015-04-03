@@ -4,6 +4,7 @@
     Author     : Akashyro
 --%>
 
+<%@page import="modulo.ofertas.FOferta"%>
 <%@page import="modulo.usuarios.dto.PermisoDto"%>
 <%@page import="modulo.usuarios.FUsuario"%>
 <%@page import="modulo.usuarios.dto.RolDto"%>
@@ -25,6 +26,7 @@
         RolDto primerRol = rolesActuales.get(0);
 
         FUsuario faUsu = new FUsuario();
+        FOferta faOfer = new FOferta();
         String pagActual = "indexp.jsp";
 
         // Validación para poder entrar
@@ -148,7 +150,7 @@
                                     Pedidos <span class="badge info">4</span> 
                                 </a>
                                 <a href="#" class="navbar-brand text-success">
-                                    Ofertas <span class="badge">18</span>
+                                    Ofertas <span class="badge"><%=faOfer.obtenerOfertas().size() %></span>
                                 </a>
                                 <%                                        }else if(rol.getIdRol() == 2){
                                 %>

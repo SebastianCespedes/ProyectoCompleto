@@ -42,12 +42,13 @@ public class ProductoAsociadoDao {
         return mensaje;
     }
 
-    public String eliminarUnProductoAsociado(int idProductoAsociado, Connection unaConexion) {
+     public String eliminarUnProductoAsociado(int idProductoAsociado, Connection unaConexion) {
         try {
-            String sqlInsert = " DELETE FROM productoasociado WHERE idProdAsoc = ?";
+            String sqlInsert = "delete from productoasociado where idProdAsoc = ? AND (select count(*) AS existeOferta from ofertas where idProdAsoc = ?) = 0;";
             pstm = unaConexion.prepareStatement(sqlInsert);
 
-            pstm.setInt(1, idProductoAsociado);            
+            pstm.setInt(1, idProductoAsociado);
+            pstm.setInt(2, idProductoAsociado);
             rtdo = pstm.executeUpdate();
 
             if (rtdo != 0) {
@@ -87,12 +88,16 @@ public class ProductoAsociadoDao {
             pstm.setLong(1, idProductor);
             pstm.setInt(2, idProducto);
             rs = pstm.executeQuery();
+            rtdo=0;
 
-            while (rs.next()) {
+            if (rs.next()) {
                 rtdo = rs.getInt("idProdAsoc");
             }
 
             if (rtdo == 0) {
+                poder = false;
+            }
+            else {
                 poder = true;
             }
         } catch (SQLException sqle) {
